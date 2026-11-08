@@ -42,6 +42,15 @@ namespace ModGuard
             ["self_duplicate_guard"] = ("另一个已订阅的工坊条目也用了模组守卫的模组 ID，可能是仿冒品。请取消订阅不是官方的那个。",
                 "Another subscribed Workshop item uses Mod Guard's mod ID and may be a fake. Unsubscribe from the one that is not official."),
 
+            // The startup self-test (ApiCheck). {0} is the list of the api_* names below, one per line.
+            ["api_head"] = ("模组守卫有检查失效了", "Some Mod Guard checks are not working"),
+            ["api_body"] = ("模组守卫启动时试运行了自己的检查，下面这些出错了，很可能是游戏更新改动了它依赖的部分：\n{0}\n\n在模组守卫更新之前，这些检查保护不了你，启用不认识的模组前请自己多加小心。模组守卫更新后，这条提示就会消失。",
+                "Mod Guard tried its own checks at startup and these failed, most likely because a game update changed something it relies on:\n{0}\n\nUntil Mod Guard is updated, these checks cannot protect you, so take extra care before activating mods you do not know. This notice goes away once Mod Guard is updated."),
+            ["api_activate"] = ("启用模组时的检查", "the check when you activate a mod"),
+            ["api_installed"] = ("游戏开着时新订阅条目的提醒", "the warning about items you subscribe to while the game is running"),
+            ["api_rows"] = ("模组菜单里的警告图标", "the warning icons in the mod menu"),
+            ["api_startup"] = ("启动时对已订阅模组的检查", "the startup check of your subscribed mods"),
+
             // What the guard does must stay clear even when its messages cannot be trusted: a block must not read as
             // "could not check". Only the cleaned mod name {0} and its source {1} go in.
             ["gate_confirmed_head"] = ("已阻止启用", "Activation blocked"),

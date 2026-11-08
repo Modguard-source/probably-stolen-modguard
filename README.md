@@ -6,7 +6,7 @@
 
 An open-source mod for Probably Stolen (深空当铺): it stops you from activating Workshop items listed as confirmed malicious, and warns about suspicious ones.
 
-> **Current version: 0.2.0.** Workshop item: <https://steamcommunity.com/sharedfiles/filedetails/?id=3835781654>
+> **Current version: 0.2.1.** Workshop item: <https://steamcommunity.com/sharedfiles/filedetails/?id=3835781654>
 
 ### What it does
 
@@ -19,6 +19,7 @@ An open-source mod for Probably Stolen (深空当铺): it stops you from activat
 - **Names automatic updates of powerful mods:** when the game loaded an update without asking you, and the mod uses high-risk capabilities such as internet or file access, the startup report names it once, so you can look at what changed.
 - **Spots fake copies of Mod Guard:** other items calling themselves 模组守卫, 模组卫士 or ModGuard get a warning before activation, repacks in a local folder included.
 - **Self-check:** see "Make sure you have the official copy" below.
+- **Self-test after game updates:** the game changes without a new version number, and Mod Guard calls into it. At every startup it runs each of its checks once on its own files. If a game update broke one, the startup report names it, on every launch, until Mod Guard is updated. If an update breaks it so badly that the game cannot load it at all, the mod menu shows a load error on its row instead.
 
 It declares no capabilities, does not go online, and its list is updated through the Workshop. It reads the manifest and the listed DLLs of subscribed items: all DLLs of a mod when you click Activate or when Steam updates an active mod during play, and at startup only those of mods that declare `native`, list more than one DLL, or were just loaded as an update. Reading only parses file metadata and computes hashes. It never loads or runs their code, and it never modifies any other mod.
 
@@ -107,7 +108,7 @@ MIT
 
 《深空当铺》(Probably Stolen) 的开源 mod：阻止启用名单上已确认恶意的工坊条目，对可疑条目发出警告。
 
-> **当前版本：0.2.0。** 工坊条目：<https://steamcommunity.com/sharedfiles/filedetails/?id=3835781654>
+> **当前版本：0.2.1。** 工坊条目：<https://steamcommunity.com/sharedfiles/filedetails/?id=3835781654>
 
 ### 它做什么
 
@@ -120,6 +121,7 @@ MIT
 - **点名高权限 mod 的自动更新：** 游戏没问你就加载了某个 mod 的更新，而且这个 mod 用到联网、读写文件之类的高风险权限时，启动报告会点名一次，方便你去看改了什么。
 - **认出仿冒的模组守卫：** 其他条目自称「模组守卫」「模组卫士」或 ModGuard 时，启用前提醒，本地文件夹里的重打包也算。
 - **自检：** 见下面「确认你装的是官方版」。
+- **游戏更新后的自检：** 游戏会不改版本号就更新，守卫又要调用游戏的功能。每次启动时，它先拿自己的文件把各项检查试运行一遍。游戏更新弄坏了哪一项，启动报告就点名哪一项，每次启动都提示，直到守卫更新。如果更新改动大到游戏根本加载不了守卫，模组菜单里它那一行会显示加载错误。
 
 不申请任何权限，不联网，名单随工坊更新。它会读取已订阅条目的 manifest 和列出的 DLL：点启用时、以及游戏运行中 Steam 更新了已启用的 mod 时，读这个 mod 的全部 DLL；启动时只读声明了 `native`、列出多个 DLL、或刚作为更新被加载的。读取只解析文件的元数据和计算哈希，不加载、不运行其中的代码。它不修改任何其他 mod。
 

@@ -13,8 +13,20 @@ namespace ModGuard
         /// <summary>A message from the language files, or the built-in one once those files turn out to have been changed.</summary>
         internal static string L(string key, params object[] args)
         {
-            SelfCheck.Run();
-            return SelfCheck.TextTrusted ? ModHelper.GetLocalized(Id, key, args) : SelfText.Get(key, args);
+            try
+            {
+                SelfCheck.Run();
+                if (SelfCheck.TextTrusted)
+                {
+                    return ModHelper.GetLocalized(Id, key, args);
+                }
+            }
+            catch (System.Exception)
+            {
+                // A game update broke the self-check or the game's text lookup. The startup report says so; the
+                // built-in text keeps every dialog, that one included, able to show.
+            }
+            return SelfText.Get(key, args);
         }
 
         public void Init(ModManifest manifest)
@@ -65,14 +77,14 @@ namespace ModGuard
             // As early as the guard can read its own files, so a Steam update arriving during the first seconds of a
             // session finds the check already done against the files the game loaded with.
             // The list is read right after, so what gets used is what was just checked.
-            _selfChecked = Guard.EnsureLoaded();
+            _selfChecked = TryLoad();
         }
 
         private void Update()
         {
             if (!_selfChecked)
             {
-                _selfChecked = Guard.EnsureLoaded();
+                _selfChecked = TryLoad();
             }
             float now = Time.unscaledTime;
             if (!_reported && MenuReady(now - _started))
@@ -84,6 +96,22 @@ namespace ModGuard
             {
                 _nextCheck = now + CheckEvery;
                 CheckPatch();
+            }
+        }
+
+        /// <summary>
+        /// False while the game has not registered the guard yet. An exception here would end this Update every frame
+        /// before the startup report, so it counts as done: the report loads again and tells the player what broke.
+        /// </summary>
+        private static bool TryLoad()
+        {
+            try
+            {
+                return Guard.EnsureLoaded();
+            }
+            catch (System.Exception)
+            {
+                return true;
             }
         }
 

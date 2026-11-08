@@ -97,7 +97,7 @@ namespace ModGuard
             // Steam can replace the files while the game runs, so judge what is on disk now, not what was there at startup.
             ModManifest manifest = ModLoader.ParseManifestForTools(mod.FolderPath, out string _) ?? mod.Manifest;
             // Hashing can be slow on a huge file, so it only happens on an explicit click, and only if the list uses it.
-            ModFingerprint fingerprint = _list.HasVersionEntries ? ModFingerprint.Compute(mod.FolderPath, manifest) : null;
+            ModFingerprint fingerprint = _list.HasVersionEntries ? ModFingerprint.Compute(mod.FolderPath, manifest, localFolder: mod.Source == ModSource.Local) : null;
             return Decide(mod, manifest, fingerprint?.Combined, fingerprint?.Files.Select(f => f.hash), ReadNative(mod, manifest));
         }
 
@@ -334,7 +334,7 @@ namespace ModGuard
                     ModManifest manifest = ModLoader.ParseManifestForTools(folder, out string _);
                     return manifest == null
                         ? ("?", null)
-                        : (TextSafe.Clean(manifest.Name), ModFingerprint.Compute(folder, manifest).Files.Select(f => f.hash).ToList());
+                        : (TextSafe.Clean(manifest.Name), ModFingerprint.Compute(folder, manifest, localFolder: false).Files.Select(f => f.hash).ToList());
                 }
             }
             return ("?", null);
@@ -399,13 +399,74 @@ namespace ModGuard
                 {
                     return;
                 }
-                Refresh();
-                FindDuplicateIds();
+            }
+            catch (Exception ex)
+            {
+                // Without its own files and list nothing of the guard works, and saying so is all that is left.
+                Debug.LogError("[ModGuard] Could not load its own files and list: " + ex);
+                ApiCheck.FailAll();
+                ShowApiProblemsOnly();
+                return;
+            }
+            try
+            {
+                ApiCheck.Try("api_startup", () =>
+                {
+                    Refresh();
+                    FindDuplicateIds();
+                    return true;
+                });
+                SelfTest();
                 ShowStartupReport();
             }
             catch (Exception ex)
             {
                 Debug.LogError("[ModGuard] Startup report failed: " + ex);
+                ApiCheck.Fail("api_startup");
+                ShowApiProblemsOnly();
+            }
+        }
+
+        /// <summary>
+        /// Runs the checks that call into the game once, on the guard itself, so that a game update which broke one
+        /// shows in the startup report and not only in the log. Nothing here opens a dialog or writes a file.
+        /// The update check that runs while the game is open goes through InspectForEnable as well.
+        /// </summary>
+        private static void SelfTest()
+        {
+            LoadedMod self = SelfCheck.Self;
+            ApiCheck.Try("api_activate", () =>
+            {
+                // The guard can always read its own DLL, so this result means the reading itself broke.
+                return InspectForEnable(self).Key != "gate_error";
+            });
+            ApiCheck.Try("api_installed", () =>
+            {
+                InspectInstalled(self.Source == ModSource.Workshop ? self.WorkshopId : 0);
+                return true;
+            });
+            ApiCheck.Try("api_rows", () =>
+            {
+                IssueFor(self);
+                // Without it the row icons only appear once the menu redraws for some other reason.
+                return RefreshRowsMethod != null;
+            });
+        }
+
+        /// <summary>When the report itself broke: the self-test result is the one thing that must still reach the player.</summary>
+        private static void ShowApiProblemsOnly()
+        {
+            try
+            {
+                List<string> lines = ApiCheck.Lines();
+                if (lines.Count > 0)
+                {
+                    Dialog.Show(SelfText.Get("api_head"), string.Join("\n\n", lines), true, Dialog.CloseButton());
+                }
+            }
+            catch (Exception ex)
+            {
+                Debug.LogError("[ModGuard] Could not show that its checks are not working: " + ex);
             }
         }
 
@@ -422,6 +483,8 @@ namespace ModGuard
 
             // Shown on every launch, never remembered as seen: a fake copy must not be able to go quiet.
             List<string> selfLines = SelfLines();
+            // Shown on every launch as well: it lasts until the guard is updated, and remembering it would hide that.
+            List<string> apiLines = ApiCheck.Lines();
             if (selfLines.Count > 0)
             {
                 focus = ModEntry.Id;
@@ -540,7 +603,7 @@ namespace ModGuard
                 lines = summary;
             }
 
-            if (lines.Count == 0 && selfLines.Count == 0)
+            if (lines.Count == 0 && selfLines.Count == 0 && apiLines.Count == 0)
             {
                 return;
             }
@@ -556,8 +619,11 @@ namespace ModGuard
                 lines.Add(ModEntry.L("report_advice"));
             }
 
-            string body = string.Join("\n\n", selfLines.Concat(lines));
-            string heading = selfLines.Count > 0 ? SelfText.Get("self_head") : ModEntry.L("report_head");
+            string body = string.Join("\n\n", selfLines.Concat(apiLines).Concat(lines));
+            // "Found problems" covers a broken check too; its own heading is only for when nothing else is reported.
+            string heading = selfLines.Count > 0 ? SelfText.Get("self_head")
+                : lines.Count == 0 ? SelfText.Get("api_head")
+                : ModEntry.L("report_head");
             string target = focus;
             // In the summary the player never read the individual warnings, so none of them count as seen.
             Action rememberAcks = SelfCheck.TextTrusted ? () => WriteAcks(acked, newAcks) : (Action)null;
@@ -571,7 +637,7 @@ namespace ModGuard
                 }));
             }
             buttons.Add(Dialog.CloseButton());
-            Dialog.Show(heading, body, activeMalicious || selfLines.Count > 0, rememberAcks, buttons.ToArray());
+            Dialog.Show(heading, body, activeMalicious || selfLines.Count > 0 || apiLines.Count > 0, rememberAcks, buttons.ToArray());
         }
 
         /// <summary>What the self-check found, in the built-in wording, since the language files may be what changed.</summary>

@@ -704,7 +704,8 @@ internal static class Program
         foreach (string key in new[] { "window_title", "footer", "footer_official", "btn_close", "btn_cancel", "btn_continue", "btn_open_menu",
             "source_workshop", "source_local", "generic_head", "generic_body",
             "gate_confirmed_head", "gate_confirmed_body", "gate_native_dropper_head", "gate_native_dropper_body",
-            "update_active_head", "update_active_body" })
+            "update_active_head", "update_active_body",
+            "api_head", "api_body", "api_activate", "api_installed", "api_rows", "api_startup" })
         {
             Check(builtIn.Contains(key), "built-in text a dialog needs exists: " + key);
         }
@@ -818,7 +819,68 @@ internal static class Program
                 Console.WriteLine("MISSING member: ModUIManager." + name);
             }
         }
+        problems += CheckReferences(dll, managed);
         Console.WriteLine($"{patches} patches checked, {problems} problems");
         return problems;
+    }
+
+    /// <summary>
+    /// Every type and member the DLL uses from another assembly must still exist in the installed game. The game
+    /// changes without a new version number, and a call to a method it has removed or re-signed only fails when the
+    /// code around it first runs: Rev13 gave ModFingerprint.Compute a third parameter, which broke 0.2.0 that way.
+    /// </summary>
+    private static int CheckReferences(string dll, string managed)
+    {
+        using var resolver = new DseCecil.DefaultAssemblyResolver();
+        foreach (string directory in resolver.GetSearchDirectories().ToList())
+        {
+            resolver.RemoveSearchDirectory(directory);
+        }
+        resolver.AddSearchDirectory(managed);
+        using var assembly = DseCecil.AssemblyDefinition.ReadAssembly(Path.GetFullPath(dll), new DseCecil.ReaderParameters { AssemblyResolver = resolver });
+        int problems = 0;
+        int resolved = 0;
+        foreach (DseCecil.TypeReference type in assembly.MainModule.GetTypeReferences())
+        {
+            Resolve(type.FullName, type.Scope?.Name, () => type.Resolve());
+        }
+        foreach (DseCecil.MemberReference member in assembly.MainModule.GetMemberReferences())
+        {
+            DseCecil.TypeReference owner = member.DeclaringType;
+            while (owner is DseCecil.TypeSpecification specification)
+            {
+                owner = specification.ElementType;
+            }
+            if (owner?.Scope is DseCecil.ModuleDefinition)
+            {
+                continue;
+            }
+            Resolve(member.FullName, owner?.Scope?.Name, () => member switch
+            {
+                DseCecil.MethodReference method => method.Resolve(),
+                DseCecil.FieldReference field => field.Resolve(),
+                _ => (object)member,
+            });
+        }
+        Console.WriteLine($"references resolved: {resolved}, missing: {problems}");
+        return problems;
+
+        void Resolve(string name, string scope, Func<object> resolve)
+        {
+            try
+            {
+                if (resolve() != null)
+                {
+                    resolved++;
+                    return;
+                }
+                Console.WriteLine("MISSING reference [" + scope + "]: " + name);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("MISSING reference [" + scope + "]: " + name + " (" + ex.GetType().Name + ": " + ex.Message + ")");
+            }
+            problems++;
+        }
     }
 }

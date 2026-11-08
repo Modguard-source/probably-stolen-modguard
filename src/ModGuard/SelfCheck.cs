@@ -19,6 +19,9 @@ namespace ModGuard
 
         internal static SelfReport Report => _report;
 
+        /// <summary>The guard's own entry in the game's mod list, once Run has found it.</summary>
+        internal static LoadedMod Self { get; private set; }
+
         /// <summary>Steam replaced the files during this session. The running DLL then works with the new files until a restart.</summary>
         internal static bool UpdatedSinceLoad { get; private set; }
 
@@ -40,6 +43,7 @@ namespace ModGuard
             {
                 return false;
             }
+            Self = self;
 
             SelfReport report = SelfFiles.Check(
                 SelfData.Files.Select(f => (f[0], f[1])),

@@ -23,6 +23,8 @@ gate_suspect_head,"Erst nachdenken, dann aktivieren"
 gate_suspect_body,"{0} ({1}) ist als verdächtig markiert.\n\nGrund: {2}\nEintrag: {3}\n\nAktiviere die Mod nur, wenn du dem Autor vertraust."
 gate_list_broken_head,Mod Guard kann nicht mit seiner Liste abgleichen
 gate_list_broken_body,"Mod Guard konnte seine eigene Liste nicht lesen und deshalb {0} ({1}) nicht damit abgleichen. Installiere Mod Guard neu.\n\nAktiviere diese Mod nur, wenn du dem Autor vertraust."
+gate_list_updated_head,Mod Guard braucht einen Neustart des Spiels
+gate_list_updated_body,"Steam hat Mod Guard aktualisiert, während das Spiel lief, und die laufende Version kann die neue Liste nicht lesen. Deshalb konnte sie {0} ({1}) nicht damit abgleichen. Starte das Spiel neu, dann liest die neue Version sie.\n\nAktiviere diese Mod nur, wenn du dem Autor vertraust."
 gate_native_dropper_head,Aktivierung blockiert: Diese Mod kann Programme herunterladen und ausführen
 gate_native_dropper_body,"{0} ({1}) kann sowohl auf das Internet zugreifen als auch Programme starten oder Code außerhalb des Spiels ausführen. Importierte Windows-Funktionen: {2}\n\nDas Spiel erlaubt Mods nicht, andere Programme zu starten, und genau so haben schädliche Mods es trotzdem getan. Mod Guard lässt nicht zu, dass diese Mod aktiviert wird. Hebe das Abo auf. Wenn du das für einen Fehler hältst: Auf der Workshop-Seite von Mod Guard steht, wie du Einspruch einlegst."
 gate_native_risky_head,Diese Mod greift über das Spiel hinaus
@@ -53,6 +55,7 @@ report_head,Mod Guard hat Probleme gefunden
 report_active_malicious,"AKTIV und als schädlich gelistet: {0} ({1}). {2} Eintrag: {3}"
 report_active_warning,"Aktiv, mit Warnung: {0} ({1}). {2}"
 report_inactive,"Nicht aktiv: {0} ({1}). {2}"
+report_auto_updated,"Ohne Rückfrage aktualisiert: {0} ({1}). Die Mod braucht keine Funktion, die du nicht genehmigt hast, deshalb hat das Spiel bei diesem Start die neue Version geladen. Sie nutzt diese von dir genehmigten Funktionen:\n{2}\nDas heißt nicht, dass das Update schädlich ist. Wenn du es nicht erwartet hast, lies die Update-Hinweise auf ihrer Workshop-Seite, und deaktiviere sie im Zweifel im Mod-Menü."
 report_duplicate,"Mehrere deiner abonnierten Workshop-Artikel verwenden die Mod-ID {0}. Das Spiel lädt nur einen davon, eine andere Mod wird also eventuell stillschweigend übersprungen. Verwende dafür nicht „Überprüfen und aktivieren“, wenn du nicht weißt, warum."
 report_duplicate_guard,"Ein anderer abonnierter Workshop-Artikel verwendet die Mod-ID von Mod Guard. Das Spiel lädt nur einen davon, beim nächsten Start läuft also womöglich die Fälschung. Hebe das Abo des Artikels auf, der nicht offiziell ist."
 report_more,…und {0} weitere. Achte auf die Warnsymbole im Mod-Menü.
@@ -60,5 +63,7 @@ report_list_broken,"Mod Guard konnte seine eigene Liste nicht lesen, deshalb wir
 report_advice,"Bei einer Mod, die aktiv und als schädlich gelistet ist: Deaktiviere sie im Mod-Menü, starte das Spiel neu, hebe das Abo auf, scanne deinen Computer mit einem Virenscanner und ändere dein Steam-Passwort. Folge keinen Anweisungen von Leuten, die dich deswegen im Chat anschreiben."
 installed_head,Ein neues Abo steht auf der Liste
 installed_body,"{3} (Workshop-Artikel {0}) wurde gerade heruntergeladen. Solange du es nicht aktivierst, wird es nicht ausgeführt.\n\nGrund: {1}\nEintrag: {2}\n\nHebe das Abo auf."
+update_active_head,Eine aktive Mod wurde gerade aktualisiert
+update_active_body,"{0} ({1}) ist aktiv, und Steam hat sie gerade aktualisiert. Beim nächsten Start kann das Spiel die neue Version ohne Rückfrage ausführen: Es fragt nur dann erneut, wenn ein Update eine Funktion braucht, die du nicht genehmigt hast.\n\nMod Guard hat in der neuen Version Folgendes gefunden: {2} Eintrag: {3}\n\nWenn die neue Version nicht laufen soll, deaktiviere die Mod im Mod-Menü, bevor du das Spiel neu startest."
 tamper_head,Jemand hat Mod Guard manipuliert
 tamper_body,"Während das Spiel lief, wurde die Prüfung von Mod Guard beim Aktivieren von Mods entfernt. Das könnte eine andere Mod gewesen sein, betrachte deine aktiven Mods daher als verdächtig. Bis zum Neustart des Spiels ist die Prüfung aus."

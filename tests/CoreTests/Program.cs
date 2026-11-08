@@ -87,6 +87,7 @@ internal static class Program
         MatchingUsesOnlySteamValues();
         GateDecisions();
         AckKeys();
+        UpdateNotices();
         TextIsCleaned();
         ImitationNeedsADifferentOwner();
         FakeGuardsAreNamed();
@@ -349,6 +350,29 @@ internal static class Program
         Check(Gate.AckKey(suspect, "a", 1, false) != Gate.AckKey(otherReason, "a", 1, false), "a different reason shows the warning again");
     }
 
+    private static void UpdateNotices()
+    {
+        // The game's own rating: everything but "steam" and "process" is high or severe.
+        bool High(string c) => c != "steam" && c != "process";
+        List<string> Named(bool updated = true, bool active = true, bool reported = false, params string[] capabilities) =>
+            UpdateNotice.CapabilitiesToName(new UpdateInput { UpdatedThisLaunch = updated, Active = active, AlreadyReported = reported, Capabilities = capabilities }, High);
+
+        Check(Named(capabilities: new[] { "network", "files" }).SequenceEqual(new[] { "network", "files" }), "an update with high-risk capabilities is named, in the order given");
+        Check(Named(capabilities: new[] { "steam", "network", "process" }).SequenceEqual(new[] { "network" }), "only the high-risk ones are named");
+        Check(Named(capabilities: new[] { "steam", "process" }).Count == 0, "low-risk capabilities alone stay silent");
+        Check(Named(capabilities: new string[0]).Count == 0, "no capabilities, no notice");
+        Check(Named(updated: false, capabilities: new[] { "native" }).Count == 0, "a mod that did not change stays silent");
+        Check(Named(active: false, capabilities: new[] { "native" }).Count == 0, "an inactive mod stays silent");
+        Check(Named(reported: true, capabilities: new[] { "native" }).Count == 0, "a mod the report already names is not named twice");
+        Check(Named(capabilities: new[] { "native", "native", "", null }).SequenceEqual(new[] { "native" }), "duplicates and blanks are dropped");
+        Check(UpdateNotice.CapabilitiesToName(new UpdateInput { UpdatedThisLaunch = true, Active = true }, High).Count == 0, "no scan result does not throw");
+
+        Check(UpdateNotice.AckKey("a", 1, Hash) == UpdateNotice.AckKey("a", 1, Hash), "the same version stays seen");
+        Check(UpdateNotice.AckKey("a", 1, Hash) != UpdateNotice.AckKey("a", 1, FileHash), "the next update is news again");
+        Check(UpdateNotice.AckKey("a", 1, Hash) != UpdateNotice.AckKey("b", 1, Hash), "two mods do not share a notice");
+        Check(UpdateNotice.AckKey("a", 1, Hash) != Gate.AckKey(new GateResult { Key = "updated" }, "a", 1, true), "an update notice is not a gate warning");
+    }
+
     private static void TextIsCleaned()
     {
         Check(!TextSafe.Clean("<color=green>Verified</color>").Contains('<'), "tags cannot open");
@@ -595,8 +619,38 @@ internal static class Program
         return map;
     }
 
+    /// <summary>
+    /// Quotes and brackets open and close in pairs, nested or not. „ closes with “ in German and with ” in Polish,
+    /// and a “ that closes nothing opens an English pair.
+    /// </summary>
+    private static bool QuotesPaired(string text)
+    {
+        var closers = new Dictionary<char, string> { ['«'] = "»", ['„'] = "“”", ['“'] = "”", ['「'] = "」", ['『'] = "』", ['（'] = "）", ['('] = ")" };
+        const string AnyCloser = "»“”」』）)";
+        var open = new Stack<string>();
+        foreach (char c in text)
+        {
+            if (open.Count > 0 && open.Peek().IndexOf(c) >= 0)
+            {
+                open.Pop();
+            }
+            else if (closers.TryGetValue(c, out string close))
+            {
+                open.Push(close);
+            }
+            else if (AnyCloser.IndexOf(c) >= 0)
+            {
+                return false;
+            }
+        }
+        return open.Count == 0;
+    }
+
     private static void ShippedData()
     {
+        Check(QuotesPaired("« Vérifier et activer » ({0})") && QuotesPaired("„Überprüfen“ „Sprawdź”") && QuotesPaired("“x” 「『y』」（z）"), "paired quotes pass");
+        Check(!QuotesPaired("« Vérifier et activer : dessus") && !QuotesPaired("x » y") && !QuotesPaired("「a」」") && !QuotesPaired("(a"), "a lost or stray quote is caught");
+
         string mod = Path.Combine(RepoRoot(), "src", "ModGuard");
         Blocklist list = Blocklist.Parse(File.ReadAllText(Path.Combine(mod, "blocklist.json")));
         Check(!list.IsBroken && list.Errors.Count == 0, "shipped blocklist is clean: " + string.Join("; ", list.Errors));
@@ -649,7 +703,8 @@ internal static class Program
         }
         foreach (string key in new[] { "window_title", "footer", "footer_official", "btn_close", "btn_cancel", "btn_continue", "btn_open_menu",
             "source_workshop", "source_local", "generic_head", "generic_body",
-            "gate_confirmed_head", "gate_confirmed_body", "gate_native_dropper_head", "gate_native_dropper_body" })
+            "gate_confirmed_head", "gate_confirmed_body", "gate_native_dropper_head", "gate_native_dropper_body",
+            "update_active_head", "update_active_body" })
         {
             Check(builtIn.Contains(key), "built-in text a dialog needs exists: " + key);
         }
@@ -671,6 +726,13 @@ internal static class Program
                 // The game renders rich text. A tag in a translation could shrink the "third-party mod" footer to
                 // nothing or paint a fake label, so no message may contain one.
                 Check(pair.Value.IndexOfAny(new[] { '<', '>' }) < 0, "no rich-text tags in text: " + language + "/" + pair.Key);
+                // Invisible characters slip in through editors and encodings (0.1.0 shipped French with U+0001 for
+                // every colon) and can reorder or hide what the player reads.
+                Check(!pair.Value.Any(c => char.GetUnicodeCategory(c) is System.Globalization.UnicodeCategory.Control or System.Globalization.UnicodeCategory.Format
+                    or System.Globalization.UnicodeCategory.LineSeparator or System.Globalization.UnicodeCategory.ParagraphSeparator),
+                    "no control or invisible characters in text: " + language + "/" + pair.Key);
+                // The same slip once turned a closing » into a colon when the text was repaired.
+                Check(QuotesPaired(pair.Value), "quotes and brackets come in pairs: " + language + "/" + pair.Key);
                 // {1} in dialog and report text is already "Workshop item N" or "local mod", so a local mod never shows "item 0".
                 Check(!Regex.IsMatch(pair.Value, @"(Workshop item|工坊条目) \{1\}"), "source is passed in, not built in the text: " + language + "/" + pair.Key);
                 Check(!en.TryGetValue(pair.Key, out string reference) || Holes(reference) == Holes(pair.Value), language + " uses the same placeholders as en: " + pair.Key);

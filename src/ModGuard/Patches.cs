@@ -50,7 +50,7 @@ namespace ModGuard
 
             try
             {
-                string heading = ModEntry.L(result.Key + "_head");
+                string heading = ModEntry.L(Guard.DialogKey(result) + "_head");
                 string body = Guard.Describe(mod, result);
                 switch (result.Action)
                 {

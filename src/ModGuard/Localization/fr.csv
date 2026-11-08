@@ -2,7 +2,7 @@
 # No message may contain a link or tell the player to download anything.
 window_title,Mod Guard
 footer,"Cet avis provient du mod tiers Mod Guard, et non du jeu ou de ses développeurs. L'absence d'avertissement ne signifie pas qu'un mod est sûr."
-footer_official,Élément officiel du Workshop  {0}.
+footer_official,Élément officiel du Workshop : {0}.
 btn_close,Fermer
 btn_cancel,Annuler
 btn_continue,Activer quand même
@@ -18,15 +18,17 @@ reason_compromised_version,Cette version provient d'un compte piraté. Les autre
 reason_mass_reupload,"Ce compte a publié de nombreux éléments en peu de temps, dont plusieurs portent le même nom que des mods d'autres auteurs, ou un nom proche. La présence de code malveillant n'est pas confirmée."
 reason_impersonation,Cet élément se fait passer pour le mod d'un autre auteur. La présence de code malveillant n'est pas confirmée.
 gate_confirmed_head,Activation bloquée
-gate_confirmed_body,"{0} ({1}) figure sur la liste de Mod Guard.\n\nRaison  {2}\nRéférence  {3}\n\nMod Guard ne le laissera pas être activé. Désabonnez-vous. Si vous pensez qu'il s'agit d'une erreur, la page Workshop de Mod Guard explique comment faire appel."
+gate_confirmed_body,"{0} ({1}) figure sur la liste de Mod Guard.\n\nRaison : {2}\nRéférence : {3}\n\nMod Guard ne le laissera pas être activé. Désabonnez-vous. Si vous pensez qu'il s'agit d'une erreur, la page Workshop de Mod Guard explique comment faire appel."
 gate_suspect_head,Réfléchissez avant d'activer
-gate_suspect_body,"{0} ({1}) est signalé comme suspect.\n\nRaison  {2}\nRéférence  {3}\n\nNe l'activez que si vous faites confiance à son auteur."
+gate_suspect_body,"{0} ({1}) est signalé comme suspect.\n\nRaison : {2}\nRéférence : {3}\n\nNe l'activez que si vous faites confiance à son auteur."
 gate_list_broken_head,Mod Guard ne peut pas consulter sa liste
 gate_list_broken_body,"Mod Guard n'a pas pu lire sa propre liste et n'a donc pas pu y comparer {0} ({1}). Réinstallez Mod Guard.\n\nN'activez ce mod que si vous faites confiance à son auteur."
-gate_native_dropper_head,Activation bloquée  ce mod peut télécharger et lancer des programmes
-gate_native_dropper_body,"{0} ({1}) peut à la fois accéder à Internet et lancer des programmes ou exécuter du code hors du jeu. Fonctions Windows importées  {2}\n\nLe jeu n'autorise pas les mods à lancer d'autres programmes, et c'est ainsi que des mods malveillants l'ont fait malgré tout. Mod Guard ne le laissera pas être activé. Désabonnez-vous. Si vous pensez qu'il s'agit d'une erreur, la page Workshop de Mod Guard explique comment faire appel."
+gate_list_updated_head,Mod Guard a besoin d'un redémarrage du jeu
+gate_list_updated_body,"Steam a mis à jour Mod Guard pendant que le jeu tournait, et la version en cours ne peut pas lire la nouvelle liste : elle n'a donc pas pu y comparer {0} ({1}). Redémarrez le jeu et la nouvelle version la lira.\n\nN'activez ce mod que si vous faites confiance à son auteur."
+gate_native_dropper_head,Activation bloquée : ce mod peut télécharger et lancer des programmes
+gate_native_dropper_body,"{0} ({1}) peut à la fois accéder à Internet et lancer des programmes ou exécuter du code hors du jeu. Fonctions Windows importées : {2}\n\nLe jeu n'autorise pas les mods à lancer d'autres programmes, et c'est ainsi que des mods malveillants l'ont fait malgré tout. Mod Guard ne le laissera pas être activé. Désabonnez-vous. Si vous pensez qu'il s'agit d'une erreur, la page Workshop de Mod Guard explique comment faire appel."
 gate_native_risky_head,Ce mod agit en dehors du jeu
-gate_native_risky_body,"{0} ({1}) importe des fonctions Windows dont les mods ont rarement besoin  {2}\n\nCela ne prouve pas à lui seul qu'il est malveillant. Ne l'activez que si vous faites confiance à son auteur."
+gate_native_risky_body,"{0} ({1}) importe des fonctions Windows dont les mods ont rarement besoin : {2}\n\nCela ne prouve pas à lui seul qu'il est malveillant. Ne l'activez que si vous faites confiance à son auteur."
 gate_multi_entry_head,Cet élément exécute plusieurs mods
 gate_multi_entry_body,"{0} ({1}) contient {2} points d'entrée de mod distincts, et le jeu les exécute tous. La plupart des mods n'en ont qu'un. C'est à cela que ressemble un chargeur caché glissé à côté d'un mod normal, même si certains gros mods le font pour des raisons ordinaires.\n\nNe l'activez que si vous faites confiance à son auteur."
 gate_hijack_head,Il s'agit d'un autre élément du Workshop
@@ -48,17 +50,20 @@ why_hijack,Utilise l'identifiant de mod d'un autre élément que vous avez valid
 why_impersonation,"Utilise le nom, l'identifiant ou le nom d'auteur d'un mod connu, mais provient d'un autre compte."
 why_fake_guard,Se présente comme Mod Guard mais n'est pas l'élément officiel.
 why_duplicate,Un autre élément auquel vous êtes abonné utilise le même identifiant de mod.
-issue_line,Mod Guard  {0}
+issue_line,Mod Guard : {0}
 report_head,Mod Guard a détecté des problèmes
-report_active_malicious,"ACTIF et répertorié comme malveillant  {0} ({1}). {2} Référence  {3}"
-report_active_warning,"Actif, avec un avertissement  {0} ({1}). {2}"
-report_inactive,"Inactif  {0} ({1}). {2}"
-report_duplicate,"Plusieurs éléments du Workshop auxquels vous êtes abonné utilisent l'identifiant de mod {0}. Le jeu n'en charge qu'un seul  un autre mod peut donc être ignoré sans avertissement. N'utilisez pas « Vérifier et activer  dessus, à moins de savoir pourquoi."
-report_duplicate_guard,"Un autre élément du Workshop auquel vous êtes abonné utilise l'identifiant de mod de Mod Guard. Le jeu n'en charge qu'un seul  au prochain lancement, c'est peut-être la contrefaçon qui sera exécutée. Désabonnez-vous de celui qui n'est pas officiel."
+report_active_malicious,"ACTIF et répertorié comme malveillant : {0} ({1}). {2} Référence : {3}"
+report_active_warning,"Actif, avec un avertissement : {0} ({1}). {2}"
+report_inactive,"Inactif : {0} ({1}). {2}"
+report_auto_updated,"Mis à jour sans vous demander : {0} ({1}). Il n'a besoin d'aucune fonctionnalité que vous n'avez pas validée, donc le jeu a chargé la nouvelle version à ce lancement. Il utilise ces fonctionnalités que vous avez validées :\n{2}\nCela ne veut pas dire que la mise à jour est malveillante. Si vous ne vous y attendiez pas, lisez les notes de mise à jour sur sa page Workshop et, en cas de doute, désactivez-le dans le menu des mods."
+report_duplicate,"Plusieurs éléments du Workshop auxquels vous êtes abonné utilisent l'identifiant de mod {0}. Le jeu n'en charge qu'un seul : un autre mod peut donc être ignoré sans avertissement. N'utilisez pas « Vérifier et activer » dessus, à moins de savoir pourquoi."
+report_duplicate_guard,"Un autre élément du Workshop auquel vous êtes abonné utilise l'identifiant de mod de Mod Guard. Le jeu n'en charge qu'un seul : au prochain lancement, c'est peut-être la contrefaçon qui sera exécutée. Désabonnez-vous de celui qui n'est pas officiel."
 report_more,... et {0} de plus. Regardez les icônes d'avertissement dans le menu des mods.
-report_list_broken,Mod Guard n'a pas pu lire sa propre liste  plus rien n'est vérifié. Réinstallez Mod Guard.
-report_advice,"Pour un mod actif et répertorié comme malveillant  désactivez-le dans le menu des mods, redémarrez le jeu, désabonnez-vous, lancez une analyse antivirus et changez votre mot de passe Steam. Ne suivez pas les instructions de quiconque vous contacte par messagerie à ce sujet."
+report_list_broken,Mod Guard n'a pas pu lire sa propre liste : plus rien n'est vérifié. Réinstallez Mod Guard.
+report_advice,"Pour un mod actif et répertorié comme malveillant : désactivez-le dans le menu des mods, redémarrez le jeu, désabonnez-vous, lancez une analyse antivirus et changez votre mot de passe Steam. Ne suivez pas les instructions de quiconque vous contacte par messagerie à ce sujet."
 installed_head,Un nouvel abonnement figure sur la liste
-installed_body,"{3} (élément du Workshop {0}) vient d'être téléchargé. Il ne s'exécutera pas tant que vous ne l'activerez pas.\n\nRaison  {1}\nRéférence  {2}\n\nDésabonnez-vous."
+installed_body,"{3} (élément du Workshop {0}) vient d'être téléchargé. Il ne s'exécutera pas tant que vous ne l'activerez pas.\n\nRaison : {1}\nRéférence : {2}\n\nDésabonnez-vous."
+update_active_head,Un mod actif vient d'être mis à jour
+update_active_body,"{0} ({1}) est actif, et Steam vient de le mettre à jour. Au prochain lancement, le jeu peut exécuter la nouvelle version sans vous demander : il ne redemande que si une mise à jour a besoin d'une fonctionnalité que vous n'avez pas validée.\n\nCe que Mod Guard a trouvé dans la nouvelle version : {2} Référence : {3}\n\nSi vous ne voulez pas que la nouvelle version s'exécute, désactivez le mod dans le menu des mods avant de redémarrer le jeu."
 tamper_head,Mod Guard a été trafiqué
-tamper_body,"Pendant que le jeu tournait, la vérification de Mod Guard lors de l'activation des mods a été supprimée. Un autre mod a pu le faire  considérez vos mods actifs comme suspects. La vérification reste désactivée jusqu'au redémarrage du jeu."
+tamper_body,"Pendant que le jeu tournait, la vérification de Mod Guard lors de l'activation des mods a été supprimée. Un autre mod a pu le faire : considérez vos mods actifs comme suspects. La vérification reste désactivée jusqu'au redémarrage du jeu."

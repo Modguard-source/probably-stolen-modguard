@@ -20,7 +20,14 @@ namespace ModGuard
         private static readonly HashSet<ulong> OwnerQueried = new HashSet<ulong>();
         private static readonly HashSet<string> DuplicateIds = new HashSet<string>(StringComparer.Ordinal);
         private static readonly HashSet<ulong> InstalledWaitingForOwner = new HashSet<ulong>();
+        private static readonly HashSet<string> UpdatedWaitingForOwner = new HashSet<string>(StringComparer.Ordinal);
         private static readonly Dictionary<string, NativeReport> NativeReports = new Dictionary<string, NativeReport>(StringComparer.OrdinalIgnoreCase);
+
+        /// <summary>
+        /// The game's GetInstalledItems also asks Steam to download every subscribed item that is not installed yet,
+        /// so the guard calls it once and asks again only for an item it has not seen.
+        /// </summary>
+        private static List<(ulong id, string folder)> _installed;
 
         private static readonly MethodInfo SelectModMethod = AccessTools.Method(typeof(ModUIManager), "SelectMod");
         private static readonly MethodInfo RefreshRowsMethod = AccessTools.Method(typeof(ModUIManager), "RefreshRowIssues");
@@ -130,11 +137,13 @@ namespace ModGuard
         /// <summary>
         /// For the startup pass, where reading every mod would let one huge file stall the menu. Mods skipped here are
         /// still read on an explicit click. They can skip this because the game refuses undeclared imports and runs only
-        /// one class per DLL, and the known loaders all come as a second DLL declaring "native".
+        /// one class per DLL, and the known loaders all come as a second DLL declaring "native". A mod the game has just
+        /// loaded as an update, without asking the player, is read in full whatever it declares: that happens once per
+        /// update, and the player never had a look at that version.
         /// </summary>
         private static NativeReport CachedNative(LoadedMod mod)
         {
-            if (!mod.Manifest.Capabilities.Contains("native") && mod.Manifest.Assemblies.Count < 2)
+            if (mod.TrustState != ModTrustState.Updated && !mod.Manifest.Capabilities.Contains("native") && mod.Manifest.Assemblies.Count < 2)
             {
                 return null;
             }
@@ -220,7 +229,7 @@ namespace ModGuard
         {
             DuplicateIds.Clear();
             var seen = new HashSet<string>(StringComparer.Ordinal);
-            foreach ((ulong _, string folder) in ModWorkshop.GetInstalledItems())
+            foreach ((ulong _, string folder) in InstalledItems(0))
             {
                 ModManifest manifest = ModLoader.ParseManifestForTools(folder, out string _);
                 if (manifest != null && !seen.Add(manifest.ID))
@@ -248,6 +257,14 @@ namespace ModGuard
                         WarnIfListed(item, owner);
                     }
                 }
+                foreach (string id in UpdatedWaitingForOwner.ToList())
+                {
+                    LoadedMod mod = OtherMods().FirstOrDefault(m => m.Manifest.ID == id);
+                    if (mod == null || !ModLoader.IsModEnabled(id) || CheckActiveUpdate(mod))
+                    {
+                        UpdatedWaitingForOwner.Remove(id);
+                    }
+                }
             }
             catch (Exception ex)
             {
@@ -266,6 +283,17 @@ namespace ModGuard
                 }
                 // The files may have just changed.
                 NativeReports.Clear();
+                LoadedMod active = ActiveModFor(item);
+                if (active != null)
+                {
+                    // Covers the list as well, and the "it will not run unless you activate it" of a new subscription
+                    // would be wrong here.
+                    if (!CheckActiveUpdate(active))
+                    {
+                        UpdatedWaitingForOwner.Add(active.Manifest.ID);
+                    }
+                    return;
+                }
                 if (ModWorkshop.TryGetOwner(item, out ulong owner))
                 {
                     WarnIfListed(item, owner);
@@ -299,7 +327,7 @@ namespace ModGuard
         /// <summary>A new item is not in the game's mod list yet, so its file hashes come from the game's fingerprint helper.</summary>
         private static (string name, IEnumerable<string> hashes) InspectInstalled(ulong item)
         {
-            foreach ((ulong id, string folder) in ModWorkshop.GetInstalledItems())
+            foreach ((ulong id, string folder) in InstalledItems(item))
             {
                 if (id == item)
                 {
@@ -310,6 +338,57 @@ namespace ModGuard
                 }
             }
             return ("?", null);
+        }
+
+        /// <summary>Item 0 takes whatever was read last. Any other item not in it means a new subscription, so Steam is asked again.</summary>
+        private static List<(ulong id, string folder)> InstalledItems(ulong item)
+        {
+            if (_installed == null || (item != 0 && !_installed.Any(i => i.id == item)))
+            {
+                _installed = ModWorkshop.GetInstalledItems();
+            }
+            return _installed;
+        }
+
+        /// <summary>The active mod a Workshop item belongs to, other than the guard. Null when that item is not running.</summary>
+        private static LoadedMod ActiveModFor(ulong item)
+        {
+            return OtherMods().FirstOrDefault(m => m.Source == ModSource.Workshop && m.WorkshopId == item && ModLoader.IsModEnabled(m.Manifest.ID));
+        }
+
+        /// <summary>
+        /// Steam updated a mod the player has active, during the session. The new files run at the next launch, and the
+        /// game does not ask first when they need no capability the player has not approved. This is the one moment
+        /// before that code runs, so the new files get the same check as a click on Activate, and the player decides.
+        /// </summary>
+        /// <returns>False while Steam has not said who published it, so the check is still to come.</returns>
+        private static bool CheckActiveUpdate(LoadedMod mod)
+        {
+            GateResult result = InspectForEnable(mod);
+            if (result.Action == GateAction.Wait)
+            {
+                return false;
+            }
+            if (!Reportable(result))
+            {
+                return true;
+            }
+            string id = mod.Manifest.ID;
+            Debug.LogWarning("[ModGuard] Steam updated the active mod '" + id + "' while the game was running, and the new files give " + result.Key + ".");
+            var buttons = new List<(string, Action)>();
+            if (MainMenuUIController.Instance != null)
+            {
+                buttons.Add((ModEntry.L("btn_open_menu"), () =>
+                {
+                    Dialog.Close();
+                    OpenMenuAt(id);
+                }));
+            }
+            buttons.Add(Dialog.CloseButton());
+            Dialog.Show(ModEntry.L("update_active_head"),
+                ModEntry.L("update_active_body", TextSafe.Clean(mod.Manifest.Name), SourceText(mod), WhyText(result), result.Entry?.Case ?? "-"),
+                danger: result.Action == GateAction.Block, buttons.ToArray());
+            return true;
         }
 
         internal static void RunStartupReport()
@@ -395,6 +474,31 @@ namespace ModGuard
                 {
                     lines.Add(ModEntry.L("report_inactive", name, SourceText(mod), why));
                 }
+            }
+
+            foreach (LoadedMod mod in OtherMods())
+            {
+                List<string> capabilities = UpdateNotice.CapabilitiesToName(new UpdateInput
+                {
+                    UpdatedThisLaunch = mod.TrustState == ModTrustState.Updated,
+                    Active = ModLoader.IsModEnabled(mod.Manifest.ID),
+                    AlreadyReported = Findings.TryGetValue(mod.Manifest.ID, out GateResult result) && Reportable(result),
+                    Capabilities = ModCapability.Order(mod.LastScan?.Capabilities ?? (IEnumerable<string>)mod.TrustRecord?.detected),
+                }, c => ModCapability.RiskOf(c) >= ModCapability.Risk.High);
+                if (capabilities.Count == 0)
+                {
+                    continue;
+                }
+                string ack = UpdateNotice.AckKey(mod.Manifest.ID, mod.WorkshopId, mod.Fingerprint?.Combined);
+                if (acked.Contains(ack))
+                {
+                    continue;
+                }
+                newAcks.Add(ack);
+                focus = focus ?? mod.Manifest.ID;
+                // The names come from the game's own text, cleaned all the same: a mod can add localization entries.
+                string named = string.Join("\n", capabilities.Select(c => "- " + TextSafe.Clean(ModCapability.DisplayName(c), 100)));
+                lines.Add(ModEntry.L("report_auto_updated", TextSafe.Clean(mod.Manifest.Name), SourceText(mod), named));
             }
 
             foreach (string id in DuplicateIds)
@@ -558,13 +662,22 @@ namespace ModGuard
             return parts.Count == 0 ? null : ModEntry.L("issue_line", string.Join(" ", parts));
         }
 
+        /// <summary>
+        /// Which text the activation dialog uses. After Steam updated the guard during the session, a list the running
+        /// version cannot read is the new release's: a restart fixes it, so "reinstall" would be the wrong advice.
+        /// </summary>
+        internal static string DialogKey(GateResult result)
+        {
+            return result.Key == "gate_list_broken" && SelfCheck.UpdatedSinceLoad ? "gate_list_updated" : result.Key;
+        }
+
         internal static string Describe(LoadedMod mod, GateResult result)
         {
             string name = TextSafe.Clean(mod.Manifest.Name);
             string reason = result.Entry != null ? ReasonText(result.Entry) : TextSafe.Clean(result.Detail, 200);
             string caseId = result.Entry?.Case ?? "-";
             string approved = TextSafe.Clean(mod.TrustRecord?.workshopId);
-            return ModEntry.L(result.Key + "_body", name, SourceText(mod), reason, caseId, approved);
+            return ModEntry.L(DialogKey(result) + "_body", name, SourceText(mod), reason, caseId, approved);
         }
 
         /// <summary>Where the mod comes from, as shown next to its name. A local mod has no Workshop item to name.</summary>

@@ -3,7 +3,7 @@
   <ID>modguard.fjwjmmc</ID>
   <Name>模组守卫 / Mod Guard</Name>
   <Author>fjwjmmc</Author>
-  <ModVersion>0.1.0</ModVersion>
+  <ModVersion>0.2.0</ModVersion>
   <Description>阻止启用名单上已确认恶意的工坊条目，并对可疑条目发出警告。它不是杀毒软件：只认识名单上的条目，没有警告不代表安全。Blocks activating Workshop items listed as malicious and warns about suspicious ones. It is not an antivirus: it only knows what is on its list, and no warning does not mean a mod is safe.</Description>
   <GameVersions>
     <Version>0.46D</Version>

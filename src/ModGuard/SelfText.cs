@@ -59,6 +59,10 @@ namespace ModGuard
             ["gate_fake_guard_head"] = ("这可能是仿冒的模组守卫", "This may be a fake Mod Guard"),
             ["gate_fake_guard_body"] = ("{0}（{1}）自称模组守卫，但不是官方条目。只有确定它的来源时才启用它。",
                 "{0} ({1}) calls itself Mod Guard but is not the official item. Activate it only if you are sure where it comes from."),
+            // The one warning that comes before an update's code runs, so it must not turn into "could not check" either.
+            ["update_active_head"] = ("已启用的模组刚被更新", "An active mod was just updated"),
+            ["update_active_body"] = ("{0}（{1}）已启用，Steam 刚刚更新了它，模组守卫对新版本有警告。它自己的提示文字被改过，所以不显示详细原因。下次启动时，游戏可能不经询问直接运行新版本。不想让它运行的话，请在重启游戏前到模组菜单里停用它。",
+                "{0} ({1}) is active, Steam has just updated it, and Mod Guard has a warning about the new version. Mod Guard's own messages were changed, so the details are not shown. At the next launch the game may run the new version without asking you. If you do not want it to run, deactivate it in the mod menu before you restart the game."),
 
             ["generic_head"] =("模组守卫无法可靠地检查", "Mod Guard cannot check reliably"),
             ["generic_body"] = ("模组守卫自己的文件被改过，这条提示的原文不可信，所以不显示。请只使用官方工坊条目里的模组守卫。",

@@ -23,6 +23,8 @@ gate_suspect_head,Zastanów się przed aktywacją
 gate_suspect_body,"Modyfikację „{0}” ({1}) oznaczono jako podejrzaną.\n\nPowód: {2}\nWpis: {3}\n\nAktywuj ją tylko wtedy, gdy ufasz autorowi."
 gate_list_broken_head,Mod Guard nie może sprawdzić swojej listy
 gate_list_broken_body,"Mod Guard nie mógł odczytać własnej listy, więc nie sprawdził według niej modyfikacji „{0}” ({1}). Zainstaluj Mod Guard ponownie.\n\nAktywuj tę modyfikację tylko wtedy, gdy ufasz autorowi."
+gate_list_updated_head,Mod Guard wymaga ponownego uruchomienia gry
+gate_list_updated_body,"Steam zaktualizował Mod Guard podczas działania gry, a uruchomiona wersja nie potrafi odczytać nowej listy, więc nie sprawdziła według niej modyfikacji „{0}” ({1}). Uruchom grę ponownie, a nowa wersja ją odczyta.\n\nAktywuj tę modyfikację tylko wtedy, gdy ufasz autorowi."
 gate_native_dropper_head,Zablokowano aktywację: ta modyfikacja może pobierać i uruchamiać programy
 gate_native_dropper_body,"Modyfikacja „{0}” ({1}) może zarówno łączyć się z internetem, jak i uruchamiać programy lub wykonywać kod poza grą. Importowane funkcje Windows: {2}\n\nGra nie pozwala modyfikacjom uruchamiać innych programów, a złośliwe modyfikacje właśnie w ten sposób obchodzą ten zakaz. Mod Guard nie pozwoli jej aktywować. Przestań ją subskrybować. Jeśli uważasz, że to pomyłka, na stronie Mod Guard w Warsztacie jest opisane, jak złożyć odwołanie."
 gate_native_risky_head,Ta modyfikacja sięga poza grę
@@ -53,6 +55,7 @@ report_head,Mod Guard wykrył problemy
 report_active_malicious,"AKTYWNA i oznaczona na liście jako złośliwa: „{0}” ({1}). {2} Wpis: {3}"
 report_active_warning,"Aktywna, z ostrzeżeniem: „{0}” ({1}). {2}"
 report_inactive,"Nieaktywna: „{0}” ({1}). {2}"
+report_auto_updated,"Zaktualizowana bez pytania: „{0}” ({1}). Nie potrzebuje żadnych możliwości poza tymi, które zostały zatwierdzone, więc gra wczytała nową wersję przy tym uruchomieniu. Używa tych zatwierdzonych możliwości:\n{2}\nTo nie znaczy, że aktualizacja jest szkodliwa. Jeśli ta aktualizacja jest zaskoczeniem, przeczytaj jej opis na stronie modyfikacji w Warsztacie, a w razie wątpliwości dezaktywuj ją w menu modyfikacji."
 report_duplicate,"Kilka subskrybowanych elementów Warsztatu używa ID modyfikacji {0}. Gra wczytuje tylko jeden z nich, więc inna modyfikacja może zostać po cichu pominięta. Nie używaj na niej „Zweryfikuj i włącz”, jeśli nie wiesz, dlaczego tak jest."
 report_duplicate_guard,"Inny subskrybowany element Warsztatu używa ID modyfikacji Mod Guard. Gra wczytuje tylko jeden z nich, więc przy następnym uruchomieniu może działać podróbka. Przestań subskrybować ten, który nie jest oficjalny."
 report_more,…i jeszcze {0}. Sprawdź ikony ostrzeżeń w menu modyfikacji.
@@ -60,5 +63,7 @@ report_list_broken,"Mod Guard nie mógł odczytać własnej listy, więc teraz n
 report_advice,"Jeśli modyfikacja jest aktywna i oznaczona na liście jako złośliwa: dezaktywuj ją w menu modyfikacji, uruchom grę ponownie, przestań ją subskrybować, przeskanuj komputer programem antywirusowym i zmień hasło do Steam. Nie wykonuj poleceń nikogo, kto kontaktuje się z tobą w tej sprawie na czacie."
 installed_head,Nowa subskrypcja jest na liście
 installed_body,"„{3}” (element Warsztatu {0}) został właśnie pobrany. Nie uruchomi się, dopóki go nie aktywujesz.\n\nPowód: {1}\nWpis: {2}\n\nPrzestań go subskrybować."
+update_active_head,Aktywna modyfikacja została właśnie zaktualizowana
+update_active_body,"Modyfikacja „{0}” ({1}) jest aktywna, a Steam właśnie ją zaktualizował. Przy następnym uruchomieniu gra może uruchomić nową wersję bez pytania: pyta ponownie tylko wtedy, gdy aktualizacja potrzebuje możliwości, które nie zostały zatwierdzone.\n\nCo Mod Guard znalazł w nowej wersji: {2} Wpis: {3}\n\nJeśli nie chcesz, aby nowa wersja się uruchomiła, dezaktywuj modyfikację w menu modyfikacji przed ponownym uruchomieniem gry."
 tamper_head,Ktoś ingerował w Mod Guard
 tamper_body,"Podczas działania gry usunięto sprawdzanie, które Mod Guard wykonuje przy aktywacji modyfikacji. Mogła to zrobić inna modyfikacja, więc traktuj aktywne modyfikacje jako podejrzane. Do ponownego uruchomienia gry sprawdzanie nie działa."

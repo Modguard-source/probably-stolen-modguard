@@ -6,7 +6,7 @@
 
 An open-source mod for Probably Stolen (深空当铺): it stops you from activating Workshop items listed as confirmed malicious, and warns about suspicious ones.
 
-> **Current version: 0.1.0.** Workshop item: <https://steamcommunity.com/sharedfiles/filedetails/?id=3835781654>
+> **Current version: 0.2.0.** Workshop item: <https://steamcommunity.com/sharedfiles/filedetails/?id=3835781654>
 
 ### What it does
 
@@ -15,20 +15,28 @@ An open-source mod for Probably Stolen (深空当铺): it stops you from activat
 - **Warns before activation:** suspicious items, items reusing the mod ID of an item you already approved, items imitating well-known mods, and items with more than one mod entry point all need the player's confirmation.
 - **Startup report:** if an active mod is listed as malicious, it tells you to deactivate it and suggests an antivirus scan and a password change.
 - **Subscription alert:** subscribe to a listed item while the game is running, and you are warned as soon as it finishes downloading.
+- **Checks updates that arrive while you play:** when Steam updates a mod you have active while the game is running, Mod Guard checks the new files right away, the same way as when you click Activate. If they get a warning, it tells you before the new version runs at the next launch.
+- **Names automatic updates of powerful mods:** when the game loaded an update without asking you, and the mod uses high-risk capabilities such as internet or file access, the startup report names it once, so you can look at what changed.
 - **Spots fake copies of Mod Guard:** other items calling themselves 模组守卫, 模组卫士 or ModGuard get a warning before activation, repacks in a local folder included.
 - **Self-check:** see "Make sure you have the official copy" below.
 
-It declares no capabilities, does not go online, and its list is updated through the Workshop. It reads the manifest and the listed DLLs of subscribed items: all DLLs of a mod when you click Activate, and at startup only those of mods that declare `native` or list more than one DLL. Reading only parses file metadata and computes hashes. It never loads or runs their code, and it never modifies any other mod.
+It declares no capabilities, does not go online, and its list is updated through the Workshop. It reads the manifest and the listed DLLs of subscribed items: all DLLs of a mod when you click Activate or when Steam updates an active mod during play, and at startup only those of mods that declare `native`, list more than one DLL, or were just loaded as an update. Reading only parses file metadata and computes hashes. It never loads or runs their code, and it never modifies any other mod.
 
 ### What it cannot do
 
 - **It is not an antivirus.** It only knows what is on its list, and **no warning does not mean a mod is safe**. That is why it has no "safe" or "verified" label.
 - **It cannot stop a malicious mod that is already running.** Both have the same access: that mod can switch it off, or even approve other mods on your behalf.
-- **It cannot stop a malicious update to a mod you approved.** If its author (or someone who stole the account) turns an approved mod into a malicious version that asks for no new capabilities, the game loads it at startup and Mod Guard can only report it afterwards.
+- **It cannot stop a malicious update to a mod you approved.** If its author (or someone who stole the account) turns an approved mod into a malicious version that asks for no new capabilities, the game loads it at startup without asking you. When the update arrives while the game is running, Mod Guard checks it before it runs and warns you, but deactivating the mod is up to you. When Steam updated it while the game was closed, the new code has already run by the time Mod Guard can say anything. See "What you can do about updates" below.
 - **It does not deactivate mods for you.** It only holds back activation; deactivating is up to you, in the mod menu. It does not change the game's loader or its approval records.
 - **A re-upload from a new account with a new technique has to wait for a list update.** The rules read declarations, not behavior, and are not hard to get around: looking functions up at run time, or hiding the payload in an image and writing it to disk, only earns a warning. Purely managed code (`WebClient`, `Process`) has to be refused by the game's own scanner.
 
 **Any mod that asks you to turn off Mod Guard to use it is a red flag.**
+
+### What you can do about updates
+
+- **Use few mods with high-risk capabilities.** A bad update to a mod you approved for internet access, file access or native code can do far more than one to a mod with none. Look at what a mod declares before you approve it.
+- **Read the update notes.** When the mod menu says a mod was updated, or Mod Guard's startup report names it, look at its Workshop page and comments.
+- **Keep a version you trust.** While the version you have is one you trust, copy the mod's folder from `steamapps\workshop\content\4348910\<item number>` in your Steam library into the game's `Mods` folder, then unsubscribe from it in Steam. The game sees the copy as coming from a different place and asks you to review it once; after that it never updates by itself. Copy it before an update you do not trust, not after.
 
 ### Make sure you have the official copy
 
@@ -47,7 +55,7 @@ Mod Guard checks itself at startup:
 
 When it finds a problem it warns at every launch, using text built into the DLL. A changed list is never used. If language files were changed, every message falls back to the built-in text, and the changed text is never shown. An incomplete download triggers this warning too; unsubscribe in Steam and subscribe again.
 
-If Steam updates Mod Guard while the game is running, the old DLL that is running sees the new files. Mod Guard compares the DLL on disk with the one the game loaded at startup: if they differ, this is an update and not tampering, so it does not warn and works with the new list on disk until a restart. At the next launch the new DLL checks again. Anything that can change Mod Guard's folder while the game runs is already running on your computer; Mod Guard cannot defend against that and does not try to.
+If Steam updates Mod Guard while the game is running, the old DLL that is running sees the new files. Mod Guard compares the DLL on disk with the one the game loaded at startup: if they differ, this is an update and not tampering, so it does not warn and works with the new list on disk until a restart. If the running version cannot read that list, for instance because its format changed, activating a mod brings up a warning that asks you to restart the game. At the next launch the new DLL checks again. Anything that can change Mod Guard's folder while the game runs is already running on your computer; Mod Guard cannot defend against that and does not try to.
 
 **Limits of the self-check:** a modified DLL can remove the self-check entirely, so the absence of a self-check warning does not prove a copy is official. Only the official item number and the DLL hash can.
 
@@ -67,7 +75,7 @@ Without `DeployDir`, nothing is copied. To test locally in the game use `tests/G
 
 #### Release
 
-The release package is only made with `tools/build-release.ps1`. It empties `build/release`, builds from scratch, runs every test, and finally checks the folder with `CoreTests release`:
+The release package is only made with `tools/build-release.ps1`. It first refuses to go on if any text file in the working tree lacks the CRLF line endings that `.gitattributes` asks for (`git status` does not show this, but the DLL would then differ from one built from a clone). Then it empties `build/release`, builds from scratch, runs every test, and finally checks the folder with `CoreTests release`:
 
 - The official item number and the publisher in the DLL match the csproj and are not 0, and the README names that item number.
 - The hash of every data file matches the one recorded in the DLL.
@@ -99,7 +107,7 @@ MIT
 
 《深空当铺》(Probably Stolen) 的开源 mod：阻止启用名单上已确认恶意的工坊条目，对可疑条目发出警告。
 
-> **当前版本：0.1.0。** 工坊条目：<https://steamcommunity.com/sharedfiles/filedetails/?id=3835781654>
+> **当前版本：0.2.0。** 工坊条目：<https://steamcommunity.com/sharedfiles/filedetails/?id=3835781654>
 
 ### 它做什么
 
@@ -108,20 +116,28 @@ MIT
 - **启用前提醒：** 可疑条目、冒用已批准条目 ID 的条目、仿冒知名 mod 的条目、含多个模组入口的条目，都要玩家确认后才能继续。
 - **启动报告：** 发现已启用的恶意 mod 时会提示你停用，并建议杀毒和改密码。
 - **订阅提醒：** 游戏开着时订阅了名单上的条目，下载完就警告。
+- **检查游戏运行中到达的更新：** 游戏开着时 Steam 更新了你已启用的 mod，守卫会马上按点启用时的同一套规则检查新文件。有警告时，在新版本下次启动运行之前告诉你。
+- **点名高权限 mod 的自动更新：** 游戏没问你就加载了某个 mod 的更新，而且这个 mod 用到联网、读写文件之类的高风险权限时，启动报告会点名一次，方便你去看改了什么。
 - **认出仿冒的模组守卫：** 其他条目自称「模组守卫」「模组卫士」或 ModGuard 时，启用前提醒，本地文件夹里的重打包也算。
 - **自检：** 见下面「确认你装的是官方版」。
 
-不声明任何能力，不联网，名单随工坊更新。它会读取已订阅条目的 manifest 和列出的 DLL：点启用时读这个 mod 的全部 DLL，启动时只读声明了 `native` 或列出多个 DLL 的。读取只解析文件的元数据和计算哈希，不加载、不运行其中的代码。它不修改任何其他 mod。
+不申请任何权限，不联网，名单随工坊更新。它会读取已订阅条目的 manifest 和列出的 DLL：点启用时、以及游戏运行中 Steam 更新了已启用的 mod 时，读这个 mod 的全部 DLL；启动时只读声明了 `native`、列出多个 DLL、或刚作为更新被加载的。读取只解析文件的元数据和计算哈希，不加载、不运行其中的代码。它不修改任何其他 mod。
 
 ### 它做不到
 
 - **不是杀毒软件。** 只认识名单上的东西，**没有警告不代表安全**。所以它没有「安全」或「已验证」标签。
 - **挡不住已经在运行的恶意 mod。** 两者权限相同，对方可以直接关掉它，甚至替你批准别的 mod。
-- **挡不住已批准 mod 的恶意更新。** 你批准过的 mod 被作者（或盗号者）更新成恶意版本时，只要它不要求新能力，游戏会在启动时直接加载，守卫只能事后报告。
+- **挡不住已批准 mod 的恶意更新。** 你批准过的 mod 被作者（或盗号者）更新成恶意版本时，只要它不要求新权限，游戏会在启动时不经询问直接加载。更新在游戏开着时到达的，守卫会在它运行前检查并提醒你，但停用要你自己点；Steam 是在游戏关着时更新的，等守卫能开口时新代码已经运行过了。见下面「对付更新，你能做的」。
 - **不会替你停用 mod。** 它只拦启用，停用要你在模组菜单里自己点。它不修改游戏的加载器和批准记录。
 - **换账号重传并且换了写法时，要等名单更新。** 规则只看声明不看行为，不难绕过：运行时才查找函数，或把载荷藏进图片再写到磁盘，都只会得到一次提醒。纯托管写法（`WebClient`、`Process`）要靠游戏自己的扫描器拒绝。
 
 **任何要求你关闭守卫才能使用的 mod，都是危险信号。**
+
+### 对付更新，你能做的
+
+- **少用高权限 mod。** 批准过联网、读写文件或调用系统库的 mod，一次坏更新能造成的损害，比没有任何权限的 mod 大得多。批准之前先看看它声明了什么。
+- **看更新说明。** 模组菜单显示某个 mod 已更新，或者守卫的启动报告点了它的名，就去它的工坊页面看看说明和评论。
+- **固定一个你信任的版本。** 趁手上这一版还是你信任的，把 mod 的文件夹从 Steam 库里的 `steamapps\workshop\content\4348910\<条目编号>` 复制到游戏的 `Mods` 文件夹，然后在 Steam 里取消订阅。游戏会把这份副本当成换了来源，要你重新审阅一次；之后它不会再自己更新。要在你不信任的更新到来之前复制，而不是之后。
 
 ### 确认你装的是官方版
 
@@ -140,7 +156,7 @@ MIT
 
 发现问题时，每次启动都会警告，用的是写死在 DLL 里的文字。改过的名单一律不用；语言文件被改过时，所有提示都改用内置文字，不显示被改过的原文。下载不完整也会触发这个警告，这时在 Steam 里取消订阅后重新订阅即可。
 
-游戏运行中 Steam 更新了守卫时，正在运行的旧 DLL 会看到新文件。守卫会比较磁盘上的 DLL 和游戏启动时载入的那份：不一样就说明是更新，不是被改，这次不报警，并按磁盘上的新名单工作到重启为止；下次启动由新 DLL 重新检查。能在游戏运行中改守卫文件夹的东西，本来就已经在你电脑上运行，这种情况守卫防不住，也不打算防。
+游戏运行中 Steam 更新了守卫时，正在运行的旧 DLL 会看到新文件。守卫会比较磁盘上的 DLL 和游戏启动时载入的那份：不一样就说明是更新，不是被改，这次不报警，并按磁盘上的新名单工作到重启为止。如果正在运行的版本读不了新名单（比如名单格式变了），点启用时会弹出提醒，请你先重启游戏。下次启动由新 DLL 重新检查。能在游戏运行中改守卫文件夹的东西，本来就已经在你电脑上运行，这种情况守卫防不住，也不打算防。
 
 **自检的边界：** 改过的 DLL 可以把自检整个删掉，所以「没有自检警告」不能证明是官方版。能证明的只有官方条目编号和 DLL 哈希。
 
@@ -160,7 +176,7 @@ dotnet run --project tests/CoreTests -c Release -- patch build/content/ModGuard.
 
 #### 发布
 
-发布包只用 `tools/build-release.ps1` 生成。它清空 `build/release`，从零构建，跑全部测试，最后用 `CoreTests release` 核对这个目录：
+发布包只用 `tools/build-release.ps1` 生成。它先检查行尾：工作区里有文本文件不是 `.gitattributes` 要求的 CRLF，就直接停下（`git status` 看不出这种差别，但这样构建出的 DLL 和别人 clone 后构建的不一样）。然后清空 `build/release`，从零构建，跑全部测试，最后用 `CoreTests release` 核对这个目录：
 
 - DLL 里的官方条目编号和发布者要和 csproj 一致，并且不为 0；README 里也要写有这个条目编号。
 - 每个数据文件的哈希要和 DLL 里记的一致。

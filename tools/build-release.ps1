@@ -12,6 +12,17 @@ $ErrorActionPreference = 'Stop'
 $root = (Resolve-Path (Join-Path $PSScriptRoot '..')).Path
 $out = Join-Path $root 'build\release'
 
+# The hashes of the data files go into the DLL, so a working tree with other line endings than .gitattributes asks
+# for builds a DLL that nobody can reproduce from a clone. git status does not show that difference, so ask git
+# for the line endings of every file in the working tree, untracked ones included. Binary and empty files have none.
+$eol = git -C $root ls-files --eol --cached --others --exclude-standard 2>$null
+if ($LASTEXITCODE -ne 0 -or -not $eol) { throw 'git ls-files failed: the line endings cannot be checked' }
+$wrong = @($eol | Where-Object { $_ -notmatch '^\S*\s+w/(crlf|-text)?\s' })
+if ($wrong.Count -gt 0) {
+    $wrong | ForEach-Object { Write-Output "  $_" }
+    throw "$($wrong.Count) file(s) in the working tree do not have CRLF line endings. Commit, then check the files out again (or build from a fresh clone) before building a release."
+}
+
 # A clean folder: anything left over from an earlier build would ship beside the DLL and fail the check.
 if (Test-Path -LiteralPath $out) { Remove-Item -LiteralPath $out -Recurse -Force }
 

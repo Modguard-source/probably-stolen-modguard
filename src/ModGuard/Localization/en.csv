@@ -23,6 +23,8 @@ gate_suspect_head,Think before activating
 gate_suspect_body,"{0} ({1}) is flagged as suspicious.\n\nReason: {2}\nRecord: {3}\n\nActivate it only if you trust its author."
 gate_list_broken_head,Mod Guard cannot check against its list
 gate_list_broken_body,"Mod Guard's own list could not be read, so it could not check {0} ({1}) against it. Reinstall Mod Guard.\n\nActivate this mod only if you trust its author."
+gate_list_updated_head,Mod Guard needs a restart
+gate_list_updated_body,"Steam updated Mod Guard while the game was running, and the running version cannot read the new list, so it could not check {0} ({1}) against it. Restart the game and the new version will read it.\n\nActivate this mod only if you trust its author."
 gate_native_dropper_head,Activation blocked: this mod can download and run programs
 gate_native_dropper_body,"{0} ({1}) can both reach the internet and start programs or run code outside the game. Windows functions it imports: {2}\n\nThe game does not allow mods to start programs, and this is how malicious mods have been doing it anyway. Mod Guard will not let it be activated. Unsubscribe from it. If you think this is a mistake, the Workshop page of Mod Guard explains how to appeal."
 gate_native_risky_head,This mod reaches outside the game
@@ -53,6 +55,7 @@ report_head,Mod Guard found problems
 report_active_malicious,"ACTIVE and listed as malicious: {0} ({1}). {2} Record: {3}"
 report_active_warning,"Active, with a warning: {0} ({1}). {2}"
 report_inactive,"Not active: {0} ({1}). {2}"
+report_auto_updated,"Updated without asking you: {0} ({1}). It needs no capability you have not approved, so the game loaded the new version at this launch. It uses these capabilities you approved:\n{2}\nThis does not mean the update is harmful. If you did not expect it, read the update notes on its Workshop page, and if in doubt, deactivate it in the mod menu."
 report_duplicate,"Several of your subscribed Workshop items use the mod ID {0}. The game loads only one of them, so another mod may be silently skipped. Do not use Review and enable on it unless you know why."
 report_duplicate_guard,"Another subscribed Workshop item uses Mod Guard's mod ID. The game loads only one of them, so the next launch may run the fake. Unsubscribe from the one that is not official."
 report_more,...and {0} more. See the warning icons in the mod menu.
@@ -60,5 +63,7 @@ report_list_broken,Mod Guard's own list could not be read, so nothing is being c
 report_advice,"For a mod that is active and listed as malicious: deactivate it in the mod menu, restart the game, unsubscribe, run an antivirus scan and change your Steam password. Do not follow instructions from anyone who contacts you in chat about this."
 installed_head,A new subscription is on the list
 installed_body,"{3} (Workshop item {0}) has just been downloaded. It will not run unless you activate it.\n\nReason: {1}\nRecord: {2}\n\nUnsubscribe from it."
+update_active_head,An active mod was just updated
+update_active_body,"{0} ({1}) is active, and Steam has just updated it. At the next launch the game may run the new version without asking you: it only asks again when an update needs a capability you have not approved.\n\nMod Guard found this in the new version: {2} Record: {3}\n\nIf you do not want the new version to run, deactivate the mod in the mod menu before you restart the game."
 tamper_head,Mod Guard was tampered with
 tamper_body,"Mod Guard's check on mod activation was removed while the game was running. Another mod may have done this, so treat your active mods as suspect. The check is off until you restart the game."

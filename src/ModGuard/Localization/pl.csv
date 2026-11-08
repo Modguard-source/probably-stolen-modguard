@@ -1,0 +1,64 @@
+# Polish text. Same keys and placeholders as en.csv. Text from the list is never shown.
+# No message may contain a link or tell the player to download anything.
+window_title,Mod Guard
+footer,"To powiadomienie pochodzi od zewnętrznej modyfikacji Mod Guard, a nie od gry ani jej twórców. Brak ostrzeżenia nie oznacza, że modyfikacja jest bezpieczna."
+footer_official,Oficjalny element Warsztatu: {0}.
+btn_close,Zamknij
+btn_cancel,Anuluj
+btn_continue,Aktywuj mimo to
+btn_open_menu,Otwórz menu modyfikacji
+source_workshop,element Warsztatu {0}
+source_local,lokalna modyfikacja
+reason_malware_confirmed,"Potwierdzono, że zawiera złośliwy kod."
+reason_download_execute,"Potwierdzono, że zawiera kod, który pobiera program z internetu i go uruchamia."
+reason_publisher_confirmed,"Potwierdzono, że inne elementy opublikowane przez to konto zawierają kod, który pobiera program z internetu i go uruchamia."
+reason_credential_theft,"Potwierdzono, że kradnie konta lub hasła."
+reason_hidden_program,"Potwierdzono, że uruchamia ukryty program."
+reason_compromised_version,Ta wersja pochodzi z przejętego konta. Inne wersje mogą być w porządku.
+reason_mass_reupload,"To konto w krótkim czasie przesłało wiele elementów, z których kilka ma takie same lub podobne nazwy jak modyfikacje innych autorów. Nie potwierdzono złośliwego kodu."
+reason_impersonation,Ten element podszywa się pod modyfikację innego autora. Nie potwierdzono złośliwego kodu.
+gate_confirmed_head,Zablokowano aktywację
+gate_confirmed_body,"Modyfikacja „{0}” ({1}) jest na liście Mod Guard.\n\nPowód: {2}\nWpis: {3}\n\nMod Guard nie pozwoli jej aktywować. Przestań ją subskrybować. Jeśli uważasz, że to pomyłka, na stronie Mod Guard w Warsztacie jest opisane, jak złożyć odwołanie."
+gate_suspect_head,Zastanów się przed aktywacją
+gate_suspect_body,"Modyfikację „{0}” ({1}) oznaczono jako podejrzaną.\n\nPowód: {2}\nWpis: {3}\n\nAktywuj ją tylko wtedy, gdy ufasz autorowi."
+gate_list_broken_head,Mod Guard nie może sprawdzić swojej listy
+gate_list_broken_body,"Mod Guard nie mógł odczytać własnej listy, więc nie sprawdził według niej modyfikacji „{0}” ({1}). Zainstaluj Mod Guard ponownie.\n\nAktywuj tę modyfikację tylko wtedy, gdy ufasz autorowi."
+gate_native_dropper_head,Zablokowano aktywację: ta modyfikacja może pobierać i uruchamiać programy
+gate_native_dropper_body,"Modyfikacja „{0}” ({1}) może zarówno łączyć się z internetem, jak i uruchamiać programy lub wykonywać kod poza grą. Importowane funkcje Windows: {2}\n\nGra nie pozwala modyfikacjom uruchamiać innych programów, a złośliwe modyfikacje właśnie w ten sposób obchodzą ten zakaz. Mod Guard nie pozwoli jej aktywować. Przestań ją subskrybować. Jeśli uważasz, że to pomyłka, na stronie Mod Guard w Warsztacie jest opisane, jak złożyć odwołanie."
+gate_native_risky_head,Ta modyfikacja sięga poza grę
+gate_native_risky_body,"Modyfikacja „{0}” ({1}) importuje funkcje Windows, których modyfikacje rzadko potrzebują: {2}\n\nSamo to nie dowodzi, że jest złośliwa. Aktywuj ją tylko wtedy, gdy ufasz autorowi."
+gate_multi_entry_head,Ten element uruchamia więcej niż jedną modyfikację
+gate_multi_entry_body,"Element „{0}” ({1}) zawiera kilka osobnych punktów wejścia modyfikacji (liczba: {2}), a gra uruchamia każdy z nich. Większość modyfikacji ma jeden. Tak wygląda ukryty loader dołączony do zwykłej modyfikacji, choć niektóre duże modyfikacje robią tak z normalnych powodów.\n\nAktywuj go tylko wtedy, gdy ufasz autorowi."
+gate_hijack_head,To inny element Warsztatu
+gate_hijack_body,"Element „{0}” ({1}) używa tego samego ID modyfikacji co wcześniej zatwierdzony element ({4}). Zatwierdzenie go przeniesie to zatwierdzenie na inny przesłany element.\n\nJeśli nie wiesz, dlaczego tak się stało, anuluj i przestań subskrybować nowszy element."
+gate_impersonation_head,To może być kopia
+gate_impersonation_body,"Modyfikacja „{0}” ({1}) używa nazwy, ID lub nazwy autora znanej modyfikacji, ale pochodzi z innego konta. Może to być fork lub tłumaczenie albo imitacja, w której ukryto coś innego.\n\nAktywuj ją tylko wtedy, gdy ufasz autorowi."
+gate_fake_guard_head,To może być fałszywy Mod Guard
+gate_fake_guard_body,"Modyfikacja „{0}” ({1}) podaje się za Mod Guard, ale nie jest oficjalnym elementem. Fałszywy Mod Guard jest szczególnie niebezpieczny, bo gracze mu ufają. Może to też być zwykły fork lub tłumaczenie.\n\nAktywuj ją tylko wtedy, gdy masz pewność, skąd pochodzi."
+gate_unverified_head,"Nie udało się sprawdzić, kto to opublikował"
+gate_unverified_body,"Steam nie podał, kto opublikował modyfikację „{0}” ({1}). Niektóre wpisy na liście Mod Guard dotyczą wszystkich elementów jednego konta, więc nie udało się w pełni sprawdzić tego elementu.\n\nAktywuj ją tylko wtedy, gdy ufasz autorowi."
+gate_wait_head,Trwa sprawdzanie w Steam
+gate_wait_body,"Mod Guard pyta Steam, kto opublikował modyfikację „{0}”. Spróbuj ponownie za kilka sekund."
+gate_error_head,Mod Guard nie mógł sprawdzić tej modyfikacji
+gate_error_body,"Podczas sprawdzania modyfikacji „{0}” ({1}) wystąpił błąd. Szczegóły są w dzienniku gry.\n\nAktywuj ją tylko wtedy, gdy ufasz autorowi."
+why_native_dropper,"Może zarówno łączyć się z internetem, jak i uruchamiać programy."
+why_native_risky,"Importuje funkcje Windows, których modyfikacje rzadko potrzebują."
+why_multi_entry,Zawiera więcej niż jeden punkt wejścia modyfikacji.
+why_hijack,"Używa ID modyfikacji innego, wcześniej zatwierdzonego elementu."
+why_impersonation,"Używa nazwy, ID lub nazwy autora znanej modyfikacji, ale pochodzi z innego konta."
+why_fake_guard,"Podaje się za Mod Guard, ale nie jest oficjalnym elementem."
+why_duplicate,Inny subskrybowany element używa tego samego ID modyfikacji.
+issue_line,Mod Guard: {0}
+report_head,Mod Guard wykrył problemy
+report_active_malicious,"AKTYWNA i oznaczona na liście jako złośliwa: „{0}” ({1}). {2} Wpis: {3}"
+report_active_warning,"Aktywna, z ostrzeżeniem: „{0}” ({1}). {2}"
+report_inactive,"Nieaktywna: „{0}” ({1}). {2}"
+report_duplicate,"Kilka subskrybowanych elementów Warsztatu używa ID modyfikacji {0}. Gra wczytuje tylko jeden z nich, więc inna modyfikacja może zostać po cichu pominięta. Nie używaj na niej „Zweryfikuj i włącz”, jeśli nie wiesz, dlaczego tak jest."
+report_duplicate_guard,"Inny subskrybowany element Warsztatu używa ID modyfikacji Mod Guard. Gra wczytuje tylko jeden z nich, więc przy następnym uruchomieniu może działać podróbka. Przestań subskrybować ten, który nie jest oficjalny."
+report_more,…i jeszcze {0}. Sprawdź ikony ostrzeżeń w menu modyfikacji.
+report_list_broken,"Mod Guard nie mógł odczytać własnej listy, więc teraz nic nie jest sprawdzane. Zainstaluj Mod Guard ponownie."
+report_advice,"Jeśli modyfikacja jest aktywna i oznaczona na liście jako złośliwa: dezaktywuj ją w menu modyfikacji, uruchom grę ponownie, przestań ją subskrybować, przeskanuj komputer programem antywirusowym i zmień hasło do Steam. Nie wykonuj poleceń nikogo, kto kontaktuje się z tobą w tej sprawie na czacie."
+installed_head,Nowa subskrypcja jest na liście
+installed_body,"„{3}” (element Warsztatu {0}) został właśnie pobrany. Nie uruchomi się, dopóki go nie aktywujesz.\n\nPowód: {1}\nWpis: {2}\n\nPrzestań go subskrybować."
+tamper_head,Ktoś ingerował w Mod Guard
+tamper_body,"Podczas działania gry usunięto sprawdzanie, które Mod Guard wykonuje przy aktywacji modyfikacji. Mogła to zrobić inna modyfikacja, więc traktuj aktywne modyfikacje jako podejrzane. Do ponownego uruchomienia gry sprawdzanie nie działa."

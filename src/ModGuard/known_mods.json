@@ -1,0 +1,12 @@
+{
+  "mods": [
+    { "id": "hollow.clientdemandhighlight", "name": "客户需求高亮", "author": "hollow", "item": "3828938065", "publisher": "76561198310244144" },
+    { "id": "kale.appraisal_assistant", "name": "Appraisal Assistant（鉴定助手）", "author": "kale", "item": "3828921912", "publisher": "76561198325245745" },
+    { "id": "smart_inventory_arrange", "name": "Smart Inventory Arrange", "author": "xiepeixuan", "item": "3829206666", "publisher": "76561198166860494" },
+    { "id": "lucky_perk_plus", "name": "幸运特性增强 / Lucky Perk Plus", "author": "sEwErManas", "item": "3829223778", "publisher": "76561198092386724" },
+    { "id": "traitunlocker", "name": "QoL 包：特性 · 拾荒 · 资金 · 加速", "author": "叶子", "item": "3829375446", "publisher": "76561199107310566" },
+    { "id": "Pen_mod_pipette", "name": "Pen的移液枪", "author": "Pen", "idPrefix": "Pen_mod_", "item": "3829409725", "publisher": "76561198996052106" },
+    { "id": "Pen_mod_QoL_Tweaks", "name": "Pen的便利性优化", "author": "Pen", "idPrefix": "Pen_mod_", "item": "3829957165", "publisher": "76561198996052106" },
+    { "id": "module_forge", "name": "可能是改的 / Probably Tampered", "author": "fjwjmmc", "item": "3834942802", "publisher": "76561199484674335" }
+  ]
+}

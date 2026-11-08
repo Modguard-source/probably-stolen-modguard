@@ -1,0 +1,64 @@
+# Chinese text. Same keys and placeholders as en.csv. Text from the list is never shown.
+# No message may contain a link or tell the player to download anything.
+window_title,模组守卫
+footer,这条提示来自第三方模组「模组守卫」，不是游戏或开发者发出的。没有警告不代表安全。
+footer_official,官方工坊条目编号：{0}。
+btn_close,关闭
+btn_cancel,取消
+btn_continue,仍要启用
+btn_open_menu,打开模组菜单
+source_workshop,工坊条目 {0}
+source_local,本地模组
+reason_malware_confirmed,已确认含有恶意代码。
+reason_download_execute,已确认含有从网上下载程序并运行的代码。
+reason_publisher_confirmed,这个发布者的其他条目已确认含有从网上下载程序并运行的代码。
+reason_credential_theft,已确认会窃取账号或密码。
+reason_hidden_program,已确认会启动隐藏程序。
+reason_compromised_version,这个版本来自被盗的账号，其他版本可能没有问题。
+reason_mass_reupload,这个发布者短时间内上传了大量条目，其中多个与其他作者的模组同名或名称相近。尚未确认含有恶意代码。
+reason_impersonation,这个条目把自己伪装成其他作者的模组。尚未确认含有恶意代码。
+gate_confirmed_head,已阻止启用
+gate_confirmed_body,"{0}（{1}）在模组守卫的名单上。\n\n原因：{2}\n记录编号：{3}\n\n模组守卫不会让它启用，请取消订阅。如果你认为这是误判，模组守卫的工坊页面有申诉说明。"
+gate_suspect_head,启用前请想一想
+gate_suspect_body,"{0}（{1}）被标记为可疑。\n\n原因：{2}\n记录编号：{3}\n\n只有信任作者时才启用它。"
+gate_list_broken_head,模组守卫无法比对名单
+gate_list_broken_body,"模组守卫读不了自己的名单，所以没能用它检查 {0}（{1}）。请重新安装模组守卫。\n\n只有信任作者时才启用它。"
+gate_native_dropper_head,已阻止启用：这个模组能下载并运行程序
+gate_native_dropper_body,"{0}（{1}）既能联网，又能启动程序或在游戏外运行代码。它导入的 Windows 函数：{2}\n\n游戏不允许模组启动其他程序，恶意模组正是这样绕过去的。模组守卫不会让它启用，请取消订阅。如果你认为这是误判，模组守卫的工坊页面有申诉说明。"
+gate_native_risky_head,这个模组会接触游戏以外的东西
+gate_native_risky_body,"{0}（{1}）导入了模组很少需要的 Windows 函数：{2}\n\n仅凭这一点不能证明它是恶意的。只有信任作者时才启用它。"
+gate_multi_entry_head,这个条目会运行不止一个模组
+gate_multi_entry_body,"{0}（{1}）含有 {2} 个独立的模组入口，游戏会逐个运行。大多数模组只有一个。把隐藏的加载器和正常模组打包在一起就是这个样子，不过有些大型模组也会因为普通的原因这样做。\n\n只有信任作者时才启用它。"
+gate_hijack_head,这是另一个工坊条目
+gate_hijack_body,"{0}（{1}）和你之前批准的条目（{4}）用了同一个模组 ID。批准它，等于把原来的批准转给另一个上传者。\n\n除非你清楚原因，否则请取消，并取消订阅较新的那个条目。"
+gate_impersonation_head,这可能是仿制品
+gate_impersonation_body,"{0}（{1}）用了知名模组的名称、ID 或作者名，但发布者不同。它可能是分支或汉化，也可能是夹带其他东西的仿制品。\n\n只有信任作者时才启用它。"
+gate_fake_guard_head,这可能是仿冒的模组守卫
+gate_fake_guard_body,"{0}（{1}）自称模组守卫，但不是官方条目。仿冒的模组守卫特别危险，因为玩家会信任它。它也可能是正常的分支或汉化。\n\n只有确定它的来源时才启用它。"
+gate_unverified_head,无法核实发布者
+gate_unverified_body,"Steam 没有返回 {0}（{1}）的发布者。模组守卫的名单里有按发布者收录的记录，所以没能完整检查这个条目。\n\n只有信任作者时才启用它。"
+gate_wait_head,正在向 Steam 查询
+gate_wait_body,模组守卫正在向 Steam 查询 {0} 的发布者，请过几秒再试。
+gate_error_head,模组守卫无法检查这个模组
+gate_error_body,"检查 {0}（{1}）时出错，详情见游戏日志。\n\n只有信任作者时才启用它。"
+why_native_dropper,它既能联网，又能启动程序。
+why_native_risky,它导入了模组很少需要的 Windows 函数。
+why_multi_entry,它含有不止一个模组入口。
+why_hijack,它用了你之前批准的另一个条目的模组 ID。
+why_impersonation,它用了知名模组的名称、ID 或作者名，但发布者不同。
+why_fake_guard,它自称模组守卫，但不是官方条目。
+why_duplicate,另一个已订阅的条目用了相同的模组 ID。
+issue_line,模组守卫：{0}
+report_head,模组守卫发现了问题
+report_active_malicious,"已启用且被列为恶意：{0}（{1}）。{2} 记录编号：{3}"
+report_active_warning,"已启用，有警告：{0}（{1}）。{2}"
+report_inactive,"未启用：{0}（{1}）。{2}"
+report_duplicate,"你订阅的多个工坊条目都用了模组 ID {0}。游戏只会加载其中一个，另一个模组可能被悄悄跳过。除非你清楚原因，否则不要对它点「审阅并启用」。"
+report_duplicate_guard,"另一个已订阅的工坊条目也用了模组守卫的模组 ID。游戏只会加载其中一个，下次启动时运行的可能是仿冒品。请取消订阅不是官方的那个。"
+report_more,……还有 {0} 条，请看模组菜单里的警告图标。
+report_list_broken,模组守卫读不了自己的名单，现在什么都没有检查。请重新安装模组守卫。
+report_advice,"已启用且被列为恶意的模组，请这样处理：在模组菜单里停用，重启游戏，取消订阅，用杀毒软件扫描，并修改 Steam 密码。不要听从任何人在聊天里就此事给你的指示。"
+installed_head,新订阅的条目在名单上
+installed_body,"{3}（工坊条目 {0}）刚下载完成。只要不启用，它就不会运行。\n\n原因：{1}\n记录编号：{2}\n\n请取消订阅。"
+tamper_head,模组守卫被动了手脚
+tamper_body,"游戏运行期间，模组守卫对启用模组的检查被移除了。可能是其他模组干的，请把已启用的模组都当作可疑。重启游戏前，这项检查不起作用。"

@@ -1,0 +1,64 @@
+# German text. Same keys and placeholders as en.csv. Text from the list is never shown.
+# No message may contain a link or tell the player to download anything.
+window_title,Mod Guard
+footer,"Dieser Hinweis stammt von der Drittanbieter-Mod Mod Guard, nicht vom Spiel oder seinen Entwicklern. Keine Warnung heißt nicht, dass eine Mod sicher ist."
+footer_official,Offizieller Workshop-Artikel: {0}.
+btn_close,Schließen
+btn_cancel,Abbrechen
+btn_continue,Trotzdem aktivieren
+btn_open_menu,Mod-Menü öffnen
+source_workshop,Workshop-Artikel {0}
+source_local,lokale Mod
+reason_malware_confirmed,Enthält nachweislich Schadcode.
+reason_download_execute,"Enthält nachweislich Code, der ein Programm aus dem Internet herunterlädt und ausführt."
+reason_publisher_confirmed,"Andere Artikel, die dieses Konto veröffentlicht hat, enthalten nachweislich Code, der ein Programm aus dem Internet herunterlädt und ausführt."
+reason_credential_theft,Stiehlt nachweislich Konten oder Passwörter.
+reason_hidden_program,Startet nachweislich ein verstecktes Programm.
+reason_compromised_version,Diese Version stammt von einem gehackten Konto. Andere Versionen können in Ordnung sein.
+reason_mass_reupload,"Dieses Konto hat in kurzer Zeit viele Artikel hochgeladen, mehrere davon mit gleichem oder ähnlichem Namen wie Mods anderer Autoren. Schadcode ist nicht nachgewiesen."
+reason_impersonation,Dieser Artikel gibt sich als Mod eines anderen Autors aus. Schadcode ist nicht nachgewiesen.
+gate_confirmed_head,Aktivierung blockiert
+gate_confirmed_body,"{0} ({1}) steht auf der Liste von Mod Guard.\n\nGrund: {2}\nEintrag: {3}\n\nMod Guard lässt nicht zu, dass diese Mod aktiviert wird. Hebe das Abo auf. Wenn du das für einen Fehler hältst: Auf der Workshop-Seite von Mod Guard steht, wie du Einspruch einlegst."
+gate_suspect_head,"Erst nachdenken, dann aktivieren"
+gate_suspect_body,"{0} ({1}) ist als verdächtig markiert.\n\nGrund: {2}\nEintrag: {3}\n\nAktiviere die Mod nur, wenn du dem Autor vertraust."
+gate_list_broken_head,Mod Guard kann nicht mit seiner Liste abgleichen
+gate_list_broken_body,"Mod Guard konnte seine eigene Liste nicht lesen und deshalb {0} ({1}) nicht damit abgleichen. Installiere Mod Guard neu.\n\nAktiviere diese Mod nur, wenn du dem Autor vertraust."
+gate_native_dropper_head,Aktivierung blockiert: Diese Mod kann Programme herunterladen und ausführen
+gate_native_dropper_body,"{0} ({1}) kann sowohl auf das Internet zugreifen als auch Programme starten oder Code außerhalb des Spiels ausführen. Importierte Windows-Funktionen: {2}\n\nDas Spiel erlaubt Mods nicht, andere Programme zu starten, und genau so haben schädliche Mods es trotzdem getan. Mod Guard lässt nicht zu, dass diese Mod aktiviert wird. Hebe das Abo auf. Wenn du das für einen Fehler hältst: Auf der Workshop-Seite von Mod Guard steht, wie du Einspruch einlegst."
+gate_native_risky_head,Diese Mod greift über das Spiel hinaus
+gate_native_risky_body,"{0} ({1}) importiert Windows-Funktionen, die Mods selten brauchen: {2}\n\nDas allein beweist nicht, dass die Mod schädlich ist. Aktiviere sie nur, wenn du dem Autor vertraust."
+gate_multi_entry_head,Dieser Artikel führt mehr als eine Mod aus
+gate_multi_entry_body,"{0} ({1}) enthält {2} getrennte Mod-Einstiegspunkte, und das Spiel führt jeden davon aus. Die meisten Mods haben einen. So sieht ein versteckter Loader aus, der neben einer normalen Mod mitgeliefert wird. Manche großen Mods machen das allerdings auch aus normalen Gründen.\n\nAktiviere den Artikel nur, wenn du dem Autor vertraust."
+gate_hijack_head,Das ist ein anderer Workshop-Artikel
+gate_hijack_body,"{0} ({1}) verwendet dieselbe Mod-ID wie der Artikel, den du früher genehmigt hast ({4}). Wenn du ihn genehmigst, geht diese Genehmigung auf einen anderen Upload über.\n\nWenn du nicht weißt, warum das passiert ist, brich ab und hebe das Abo des neueren Artikels auf."
+gate_impersonation_head,Das könnte eine Kopie sein
+gate_impersonation_body,"{0} ({1}) verwendet den Namen, die ID oder den Autorennamen einer bekannten Mod, wurde aber von einem anderen Konto veröffentlicht. Es kann ein Fork oder eine Übersetzung sein, oder eine Nachahmung, die etwas anderes mitbringt.\n\nAktiviere die Mod nur, wenn du dem Autor vertraust."
+gate_fake_guard_head,Das könnte ein gefälschter Mod Guard sein
+gate_fake_guard_body,"{0} ({1}) nennt sich Mod Guard, ist aber nicht der offizielle Artikel. Ein gefälschter Mod Guard ist besonders gefährlich, weil Spieler ihm vertrauen. Es kann auch ein gewöhnlicher Fork oder eine Übersetzung sein.\n\nAktiviere die Mod nur, wenn du sicher weißt, woher sie stammt."
+gate_unverified_head,Veröffentlichendes Konto nicht überprüfbar
+gate_unverified_body,"Steam hat nicht mitgeteilt, welches Konto {0} ({1}) veröffentlicht hat. Einige Einträge auf der Liste von Mod Guard gelten für alle Artikel eines Kontos, deshalb konnte dieser Artikel nicht vollständig geprüft werden.\n\nAktiviere die Mod nur, wenn du dem Autor vertraust."
+gate_wait_head,Anfrage an Steam läuft
+gate_wait_body,"Mod Guard fragt bei Steam nach, welches Konto {0} veröffentlicht hat. Versuche es in ein paar Sekunden noch einmal."
+gate_error_head,Mod Guard konnte diese Mod nicht prüfen
+gate_error_body,"Beim Prüfen von {0} ({1}) ist ein Fehler aufgetreten. Details stehen im Spielprotokoll.\n\nAktiviere die Mod nur, wenn du dem Autor vertraust."
+why_native_dropper,Kann sowohl auf das Internet zugreifen als auch Programme starten.
+why_native_risky,"Importiert Windows-Funktionen, die Mods selten brauchen."
+why_multi_entry,Enthält mehr als einen Mod-Einstiegspunkt.
+why_hijack,"Verwendet die Mod-ID eines anderen Artikels, den du früher genehmigt hast."
+why_impersonation,"Verwendet den Namen, die ID oder den Autorennamen einer bekannten Mod, stammt aber von einem anderen Konto."
+why_fake_guard,"Nennt sich Mod Guard, ist aber nicht der offizielle Artikel."
+why_duplicate,Ein anderer abonnierter Artikel verwendet dieselbe Mod-ID.
+issue_line,Mod Guard: {0}
+report_head,Mod Guard hat Probleme gefunden
+report_active_malicious,"AKTIV und als schädlich gelistet: {0} ({1}). {2} Eintrag: {3}"
+report_active_warning,"Aktiv, mit Warnung: {0} ({1}). {2}"
+report_inactive,"Nicht aktiv: {0} ({1}). {2}"
+report_duplicate,"Mehrere deiner abonnierten Workshop-Artikel verwenden die Mod-ID {0}. Das Spiel lädt nur einen davon, eine andere Mod wird also eventuell stillschweigend übersprungen. Verwende dafür nicht „Überprüfen und aktivieren“, wenn du nicht weißt, warum."
+report_duplicate_guard,"Ein anderer abonnierter Workshop-Artikel verwendet die Mod-ID von Mod Guard. Das Spiel lädt nur einen davon, beim nächsten Start läuft also womöglich die Fälschung. Hebe das Abo des Artikels auf, der nicht offiziell ist."
+report_more,…und {0} weitere. Achte auf die Warnsymbole im Mod-Menü.
+report_list_broken,"Mod Guard konnte seine eigene Liste nicht lesen, deshalb wird gerade nichts geprüft. Installiere Mod Guard neu."
+report_advice,"Bei einer Mod, die aktiv und als schädlich gelistet ist: Deaktiviere sie im Mod-Menü, starte das Spiel neu, hebe das Abo auf, scanne deinen Computer mit einem Virenscanner und ändere dein Steam-Passwort. Folge keinen Anweisungen von Leuten, die dich deswegen im Chat anschreiben."
+installed_head,Ein neues Abo steht auf der Liste
+installed_body,"{3} (Workshop-Artikel {0}) wurde gerade heruntergeladen. Solange du es nicht aktivierst, wird es nicht ausgeführt.\n\nGrund: {1}\nEintrag: {2}\n\nHebe das Abo auf."
+tamper_head,Jemand hat Mod Guard manipuliert
+tamper_body,"Während das Spiel lief, wurde die Prüfung von Mod Guard beim Aktivieren von Mods entfernt. Das könnte eine andere Mod gewesen sein, betrachte deine aktiven Mods daher als verdächtig. Bis zum Neustart des Spiels ist die Prüfung aus."

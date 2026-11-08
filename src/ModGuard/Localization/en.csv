@@ -1,0 +1,64 @@
+# Text from the list is never shown: every message below is written here and takes only cleaned values.
+# No message may contain a link or tell the player to download anything.
+window_title,Mod Guard
+footer,This notice comes from the third-party mod Mod Guard, not from the game or its developers. No warning does not mean a mod is safe.
+footer_official,Official Workshop item: {0}.
+btn_close,Close
+btn_cancel,Cancel
+btn_continue,Activate anyway
+btn_open_menu,Open the mod menu
+source_workshop,Workshop item {0}
+source_local,local mod
+reason_malware_confirmed,Confirmed to contain malicious code.
+reason_download_execute,Confirmed to contain code that downloads a program from the internet and runs it.
+reason_publisher_confirmed,Other items from this publisher are confirmed to contain code that downloads a program from the internet and runs it.
+reason_credential_theft,Confirmed to steal accounts or passwords.
+reason_hidden_program,Confirmed to start a hidden program.
+reason_compromised_version,This version came from a compromised account. Other versions may be fine.
+reason_mass_reupload,This publisher uploaded many items in a short time, several with the same or similar names as other authors' mods. Malicious code has not been confirmed.
+reason_impersonation,This item presents itself as another author's mod. Malicious code has not been confirmed.
+gate_confirmed_head,Activation blocked
+gate_confirmed_body,"{0} ({1}) is on Mod Guard's list.\n\nReason: {2}\nRecord: {3}\n\nMod Guard will not let it be activated. Unsubscribe from it. If you think this is a mistake, the Workshop page of Mod Guard explains how to appeal."
+gate_suspect_head,Think before activating
+gate_suspect_body,"{0} ({1}) is flagged as suspicious.\n\nReason: {2}\nRecord: {3}\n\nActivate it only if you trust its author."
+gate_list_broken_head,Mod Guard cannot check against its list
+gate_list_broken_body,"Mod Guard's own list could not be read, so it could not check {0} ({1}) against it. Reinstall Mod Guard.\n\nActivate this mod only if you trust its author."
+gate_native_dropper_head,Activation blocked: this mod can download and run programs
+gate_native_dropper_body,"{0} ({1}) can both reach the internet and start programs or run code outside the game. Windows functions it imports: {2}\n\nThe game does not allow mods to start programs, and this is how malicious mods have been doing it anyway. Mod Guard will not let it be activated. Unsubscribe from it. If you think this is a mistake, the Workshop page of Mod Guard explains how to appeal."
+gate_native_risky_head,This mod reaches outside the game
+gate_native_risky_body,"{0} ({1}) imports Windows functions that mods rarely need: {2}\n\nThis alone does not prove it is malicious. Activate it only if you trust its author."
+gate_multi_entry_head,This item runs more than one mod
+gate_multi_entry_body,"{0} ({1}) contains {2} separate mod entry points, and the game runs each of them. Most mods have one. A hidden loader packed beside a normal mod looks like this, though some large mods do it for ordinary reasons.\n\nActivate it only if you trust its author."
+gate_hijack_head,This is a different Workshop item
+gate_hijack_body,"{0} ({1}) uses the same mod ID as the item you approved earlier ({4}). Approving it would hand that approval to a different upload.\n\nUnless you know why this happened, cancel and unsubscribe from the newer item."
+gate_impersonation_head,This may be a copy
+gate_impersonation_body,"{0} ({1}) uses the name, ID or author name of a well-known mod but comes from a different publisher. It may be a fork or a translation, or an imitation carrying something else.\n\nActivate it only if you trust its author."
+gate_fake_guard_head,This may be a fake Mod Guard
+gate_fake_guard_body,"{0} ({1}) calls itself Mod Guard but is not the official item. A fake Mod Guard is especially dangerous because players trust it. It may also be an ordinary fork or translation.\n\nActivate it only if you are sure where it comes from."
+gate_unverified_head,Publisher could not be checked
+gate_unverified_body,"Steam did not say who published {0} ({1}). Some entries on Mod Guard's list cover a whole publisher, so it could not fully check this item.\n\nActivate it only if you trust its author."
+gate_wait_head,Checking with Steam
+gate_wait_body,Mod Guard is asking Steam who published {0}. Try again in a few seconds.
+gate_error_head,Mod Guard could not check this mod
+gate_error_body,"Something went wrong while checking {0} ({1}). Details are in the game log.\n\nActivate it only if you trust its author."
+why_native_dropper,It can both reach the internet and start programs.
+why_native_risky,It imports Windows functions that mods rarely need.
+why_multi_entry,It contains more than one mod entry point.
+why_hijack,It uses the mod ID of a different item you approved earlier.
+why_impersonation,It uses the name, ID or author name of a well-known mod but comes from a different publisher.
+why_fake_guard,It calls itself Mod Guard but is not the official item.
+why_duplicate,Another subscribed item uses the same mod ID.
+issue_line,Mod Guard: {0}
+report_head,Mod Guard found problems
+report_active_malicious,"ACTIVE and listed as malicious: {0} ({1}). {2} Record: {3}"
+report_active_warning,"Active, with a warning: {0} ({1}). {2}"
+report_inactive,"Not active: {0} ({1}). {2}"
+report_duplicate,"Several of your subscribed Workshop items use the mod ID {0}. The game loads only one of them, so another mod may be silently skipped. Do not use Review and enable on it unless you know why."
+report_duplicate_guard,"Another subscribed Workshop item uses Mod Guard's mod ID. The game loads only one of them, so the next launch may run the fake. Unsubscribe from the one that is not official."
+report_more,...and {0} more. See the warning icons in the mod menu.
+report_list_broken,Mod Guard's own list could not be read, so nothing is being checked. Reinstall Mod Guard.
+report_advice,"For a mod that is active and listed as malicious: deactivate it in the mod menu, restart the game, unsubscribe, run an antivirus scan and change your Steam password. Do not follow instructions from anyone who contacts you in chat about this."
+installed_head,A new subscription is on the list
+installed_body,"{3} (Workshop item {0}) has just been downloaded. It will not run unless you activate it.\n\nReason: {1}\nRecord: {2}\n\nUnsubscribe from it."
+tamper_head,Mod Guard was tampered with
+tamper_body,"Mod Guard's check on mod activation was removed while the game was running. Another mod may have done this, so treat your active mods as suspect. The check is off until you restart the game."

@@ -1,0 +1,7 @@
+bin/
+obj/
+build/
+# Never commit game code, game assets or suspect mods.
+*.dll
+samples/
+decompiled/

@@ -1,0 +1,13 @@
+# The data files ship beside the DLL and their hashes are built into it, so their bytes must not depend on the
+# platform that checks them out. Fixing the line endings keeps the build deterministic across machines.
+* text=auto
+*.cs text eol=crlf
+*.csproj text eol=crlf
+*.csv text eol=crlf
+*.json text eol=crlf
+*.xml text eol=crlf
+*.md text eol=crlf
+*.ps1 text eol=crlf
+*.dll binary
+*.png binary
+*.jpg binary

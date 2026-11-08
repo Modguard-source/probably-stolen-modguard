@@ -1,0 +1,64 @@
+# Japanese text. Same keys and placeholders as en.csv. Text from the list is never shown.
+# No message may contain a link or tell the player to download anything.
+window_title,Mod Guard
+footer,この通知はサードパーティMOD「Mod Guard」によるもので、ゲームや開発者からのものではありません。警告がなくても、MODが安全とは限りません。
+footer_official,公式ワークショップアイテム：{0}
+btn_close,閉じる
+btn_cancel,キャンセル
+btn_continue,それでも有効化
+btn_open_menu,MODメニューを開く
+source_workshop,ワークショップアイテム {0}
+source_local,ローカルMOD
+reason_malware_confirmed,悪意のあるコードを含むことが確認されています。
+reason_download_execute,インターネットからプログラムをダウンロードして実行するコードを含むことが確認されています。
+reason_publisher_confirmed,この公開者の他のアイテムに、インターネットからプログラムをダウンロードして実行するコードが含まれていることが確認されています。
+reason_credential_theft,アカウントやパスワードを盗むことが確認されています。
+reason_hidden_program,隠しプログラムを起動することが確認されています。
+reason_compromised_version,このバージョンは乗っ取られたアカウントからアップロードされました。他のバージョンは問題ない可能性があります。
+reason_mass_reupload,この公開者は短期間に大量のアイテムをアップロードしており、その中には他の作者のMODと同じ名前や似た名前のものが複数あります。悪意のあるコードはまだ確認されていません。
+reason_impersonation,このアイテムは他の作者のMODになりすましています。悪意のあるコードはまだ確認されていません。
+gate_confirmed_head,有効化をブロックしました
+gate_confirmed_body,"「{0}」（{1}）はMod Guardのリストに載っています。\n\n理由：{2}\n記録番号：{3}\n\nMod GuardはこのMODを有効化させません。登録を解除してください。誤りだと思う場合は、Mod Guardのワークショップページに異議申し立ての方法が書かれています。"
+gate_suspect_head,有効化する前によく考えてください
+gate_suspect_body,"「{0}」（{1}）は疑わしいとマークされています。\n\n理由：{2}\n記録番号：{3}\n\n作者を信頼できる場合にのみ有効化してください。"
+gate_list_broken_head,Mod Guardがリストと照合できません
+gate_list_broken_body,"Mod Guardは自身のリストを読み込めなかったため、「{0}」（{1}）を照合できませんでした。Mod Guardを再インストールしてください。\n\n作者を信頼できる場合にのみ、このMODを有効化してください。"
+gate_native_dropper_head,有効化をブロックしました：このMODはプログラムをダウンロードして実行できます
+gate_native_dropper_body,"「{0}」（{1}）は、インターネットへの接続と、プログラムの起動やゲーム外でのコード実行の両方ができます。インポートしているWindows関数：{2}\n\nゲームはMODが他のプログラムを起動することを許可していませんが、悪意のあるMODはまさにこの方法で制限をすり抜けてきました。Mod GuardはこのMODを有効化させません。登録を解除してください。誤りだと思う場合は、Mod Guardのワークショップページに異議申し立ての方法が書かれています。"
+gate_native_risky_head,このMODはゲームの外に手を伸ばします
+gate_native_risky_body,"「{0}」（{1}）は、MODにはめったに必要ないWindows関数をインポートしています：{2}\n\nこれだけで悪意があるとは言えません。作者を信頼できる場合にのみ有効化してください。"
+gate_multi_entry_head,このアイテムは複数のMODを実行します
+gate_multi_entry_body,"「{0}」（{1}）には独立したMODのエントリーポイントが{2}個あり、ゲームはそれぞれを実行します。ほとんどのMODは1つだけです。通常のMODに隠しローダーを組み込むと、このようになります。ただし、大型MODが普通の理由でこうしていることもあります。\n\n作者を信頼できる場合にのみ有効化してください。"
+gate_hijack_head,これは別のワークショップアイテムです
+gate_hijack_body,"「{0}」（{1}）は、以前に承認したアイテム（{4}）と同じMOD IDを使っています。これを承認すると、元の承認が別のアップロードに引き継がれます。\n\n理由が分からない場合は、キャンセルして新しいほうのアイテムの登録を解除してください。"
+gate_impersonation_head,コピーの可能性があります
+gate_impersonation_body,"「{0}」（{1}）は有名なMODの名前、ID、または作者名を使っていますが、公開者が異なります。フォークやローカライズ版かもしれませんし、別のものを仕込んだ模倣品かもしれません。\n\n作者を信頼できる場合にのみ有効化してください。"
+gate_fake_guard_head,偽のMod Guardの可能性があります
+gate_fake_guard_body,"「{0}」（{1}）はMod Guardを名乗っていますが、公式アイテムではありません。偽のMod Guardは、プレイヤーに信頼されるため特に危険です。普通のフォークやローカライズ版の可能性もあります。\n\n入手元が確かな場合にのみ有効化してください。"
+gate_unverified_head,公開者を確認できません
+gate_unverified_body,"Steamから「{0}」（{1}）の公開者が返ってきませんでした。Mod Guardのリストには公開者単位の記録もあるため、このアイテムを完全には確認できませんでした。\n\n作者を信頼できる場合にのみ有効化してください。"
+gate_wait_head,Steamに問い合わせ中
+gate_wait_body,Mod Guardが「{0}」の公開者をSteamに問い合わせています。しばらく待ってから、もう一度試してください。
+gate_error_head,Mod GuardがこのMODを確認できませんでした
+gate_error_body,"「{0}」（{1}）の確認中にエラーが発生しました。詳細はゲームのログにあります。\n\n作者を信頼できる場合にのみ有効化してください。"
+why_native_dropper,インターネットへの接続とプログラムの起動の両方ができます。
+why_native_risky,MODにはめったに必要ないWindows関数をインポートしています。
+why_multi_entry,MODのエントリーポイントが複数あります。
+why_hijack,以前に承認した別のアイテムのMOD IDを使っています。
+why_impersonation,有名なMODの名前、ID、または作者名を使っていますが、公開者が異なります。
+why_fake_guard,Mod Guardを名乗っていますが、公式アイテムではありません。
+why_duplicate,登録中の別のアイテムが同じMOD IDを使っています。
+issue_line,Mod Guard：{0}
+report_head,Mod Guardが問題を見つけました
+report_active_malicious,"有効になっており、悪意ありとしてリストに掲載されています：「{0}」（{1}）。{2} 記録番号：{3}"
+report_active_warning,"有効、警告あり：「{0}」（{1}）。{2}"
+report_inactive,"無効：「{0}」（{1}）。{2}"
+report_duplicate,"登録中の複数のワークショップアイテムが、MOD ID {0} を使っています。ゲームはそのうち1つしか読み込まないため、別のMODが知らないうちにスキップされている可能性があります。理由が分からない場合は、それに対して「再度有効化を試す」を使わないでください。"
+report_duplicate_guard,"登録中の別のワークショップアイテムが、Mod GuardのMOD IDを使っています。ゲームはそのうち1つしか読み込まないため、次回の起動時に偽物が実行される可能性があります。公式でないほうの登録を解除してください。"
+report_more,……ほか{0}件。MODメニューの警告アイコンを確認してください。
+report_list_broken,Mod Guardは自身のリストを読み込めなかったため、現在何もチェックしていません。Mod Guardを再インストールしてください。
+report_advice,"有効になっていて、悪意ありとしてリストに掲載されているMODがある場合：MODメニューで無効化し、ゲームを再起動し、登録を解除してから、ウイルス対策ソフトでスキャンし、Steamのパスワードを変更してください。この件についてチャットで連絡してくる人の指示には従わないでください。"
+installed_head,新しく登録したアイテムがリストに載っています
+installed_body,"「{3}」（ワークショップアイテム {0}）のダウンロードが完了しました。有効化しない限り、実行されることはありません。\n\n理由：{1}\n記録番号：{2}\n\n登録を解除してください。"
+tamper_head,Mod Guardが改ざんされました
+tamper_body,"ゲームの実行中に、MOD有効化時のMod Guardのチェックが取り除かれました。他のMODの仕業かもしれないため、有効なMODはすべて疑わしいものとして扱ってください。ゲームを再起動するまで、このチェックは機能しません。"
